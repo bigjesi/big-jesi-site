@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Big Jesi | BBS Lab</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #080808;
+      --card: #171717;
+      --text: #f5f2e8;
+      --muted: #b7b1a4;
+      --yellow: #f2c230;
+      --orange: #e85825;
+      --line: rgba(245, 242, 232, 0.14);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top left, rgba(242, 194, 48, 0.16), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(232, 88, 37, 0.14), transparent 28%),
+        var(--bg);
+      color: var(--text);
+      font-family: 'Archivo', sans-serif;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 34px 34px;
+      z-index: -1;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(14px);
+      background: rgba(8, 8, 8, 0.72);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--yellow);
+      color: #080808;
+      display: grid;
+      place-items: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 16px;
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .nav-links a:hover { color: var(--yellow); }
+
+    .hero {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 84px 20px 52px;
+      min-height: 78vh;
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 42px;
+      align-items: center;
+    }
+
+    .kicker {
+      display: inline-flex;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-family: 'Space Mono', monospace;
+      color: var(--yellow);
+      font-size: 12px;
+      margin-bottom: 22px;
+      background: rgba(255,255,255,0.04);
+    }
+
+    h1 {
+      font-size: clamp(54px, 9vw, 120px);
+      line-height: 0.86;
+      letter-spacing: -0.08em;
+      margin: 0;
+      text-transform: uppercase;
+    }
+
+    .hero-subtitle {
+      max-width: 680px;
+      margin-top: 26px;
+      font-size: clamp(18px, 2vw, 25px);
+      line-height: 1.35;
+      color: var(--muted);
+    }
+
+    .hero-subtitle strong { color: var(--text); }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    .btn {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 13px 18px;
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      transition: 180ms ease;
+      background: rgba(255,255,255,0.04);
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      border-color: var(--yellow);
+    }
+
+    .btn.primary {
+      background: var(--yellow);
+      color: #080808;
+      border-color: var(--yellow);
+      font-weight: 700;
+    }
+
+    .hero-card {
+      border: 1px solid var(--line);
+      background: linear-gradient(160deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+      border-radius: 28px;
+      padding: 24px;
+      min-height: 420px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.28);
+    }
+
+    .hero-card::before {
+      content: "BBS LAB";
+      position: absolute;
+      right: -20px;
+      bottom: 20px;
+      color: rgba(245, 242, 232, 0.06);
+      font-size: 88px;
+      font-weight: 900;
+      letter-spacing: -0.08em;
+      transform: rotate(-8deg);
+    }
+
+    .studio-tag {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      padding: 8px 10px;
+      border-radius: 10px;
+      background: #080808;
+      color: var(--yellow);
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      margin-bottom: 68px;
+    }
+
+    .big-number {
+      position: relative;
+      z-index: 1;
+      font-size: 86px;
+      font-weight: 900;
+      letter-spacing: -0.08em;
+      color: var(--yellow);
+    }
+
+    .hero-card p {
+      position: relative;
+      z-index: 1;
+      max-width: 300px;
+      color: var(--muted);
+      line-height: 1.5;
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+    }
+
+    section {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 70px 20px;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-title {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 26px;
+    }
+
+    h2 {
+      font-size: clamp(32px, 5vw, 64px);
+      line-height: 0.92;
+      letter-spacing: -0.06em;
+      margin: 0;
+      text-transform: uppercase;
+    }
+
+    .section-note {
+      max-width: 460px;
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .content-grid, .photo-grid, .press-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .media-card, .work-card, .press-card, .photo-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 18px;
+      overflow: hidden;
+    }
+
+    .media-card h3, .work-card h3, .press-card h3 {
+      margin: 0 0 12px;
+      font-size: 18px;
+      letter-spacing: -0.02em;
+    }
+
+    .embed-box {
+      min-height: 360px;
+      border-radius: 18px;
+      overflow: hidden;
+      background: var(--card);
+      border: 1px dashed rgba(245, 242, 232, 0.22);
+      display: grid;
+      place-items: center;
+    }
+
+    .embed-box iframe { width: 100%; border: 0; }
+    .youtube-box { min-height: 230px; aspect-ratio: 16 / 9; }
+    .youtube-box iframe { height: 100%; }
+
+    .fallback {
+      padding: 22px;
+      text-align: center;
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .about {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 34px;
+      align-items: start;
+    }
+
+    .about-panel {
+      border-radius: 28px;
+      padding: 26px;
+      background: var(--yellow);
+      color: #080808;
+      position: sticky;
+      top: 92px;
+    }
+
+    .about-panel h3 {
+      margin: 0 0 12px;
+      font-size: 42px;
+      line-height: 0.92;
+      letter-spacing: -0.06em;
+      text-transform: uppercase;
+    }
+
+    .about-text {
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.62;
+    }
+
+    .about-text strong { color: var(--text); }
+
+    .photo-card { padding: 0; position: relative; }
+    .photo-card img {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      display: block;
+      filter: saturate(0.92) contrast(1.08);
+    }
+
+    .photo-card span {
+      position: absolute;
+      left: 14px;
+      bottom: 14px;
+      background: rgba(8,8,8,0.76);
+      color: var(--yellow);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+    }
+
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .work-card {
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .work-card p, .press-card p {
+      color: var(--muted);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .tag {
+      display: inline-flex;
+      width: max-content;
+      margin-top: 22px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(242, 194, 48, 0.12);
+      color: var(--yellow);
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+    }
+
+    .contact-box {
+      border-radius: 30px;
+      padding: 36px;
+      background: linear-gradient(135deg, var(--yellow), var(--orange));
+      color: #080808;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .contact-box h2 { color: #080808; }
+
+    .contact-box p {
+      max-width: 620px;
+      line-height: 1.5;
+      font-size: 18px;
+      margin-bottom: 0;
+    }
+
+    .contact-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .contact-actions .btn {
+      border-color: rgba(0,0,0,0.25);
+      background: #080808;
+      color: var(--text);
+      text-align: center;
+    }
+
+    footer {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 32px 20px 60px;
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      border-top: 1px solid var(--line);
+    }
+
+    @media (max-width: 850px) {
+      .nav-links { display: none; }
+      .hero, .about, .contact-box { grid-template-columns: 1fr; }
+      .hero { padding-top: 54px; }
+      .hero-card { min-height: 320px; }
+      .content-grid, .press-grid, .work-grid, .photo-grid { grid-template-columns: 1fr; }
+      .section-title { align-items: start; flex-direction: column; }
+      .about-panel { position: static; }
+      footer { flex-direction: column; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <nav class="nav">
+      <a class="brand" href="#top">
+        <span class="brand-mark">BBS</span>
+        <span>Big Jesi</span>
+      </a>
+      <div class="nav-links">
+        <a href="#conteudos">conteúdos</a>
+        <a href="#sobre">sobre</a>
+        <a href="#fotos">fotos</a>
+        <a href="#trabalhos">trabalhos</a>
+        <a href="#contato">contato</a>
+      </div>
+    </nav>
+  </div>
+
+  <main id="top">
+    <header class="hero">
+      <div>
+        <span class="kicker">produção musical • beatmaking • direção artística</span>
+        <h1>Big<br>Jesi</h1>
+        <p class="hero-subtitle">
+          Produtor musical paraibano conectando <strong>estúdio, cena independente, beats e território</strong> numa linguagem contemporânea.
+        </p>
+        <div class="cta-row">
+          <a class="btn primary" href="#contato">contratar / contato</a>
+          <a class="btn" href="#conteudos">ver conteúdos</a>
+          <a class="btn" href="#trabalhos">portfólio</a>
+        </div>
+      </div>
+
+      <aside class="hero-card">
+        <span class="studio-tag">BBS LAB / JOÃO PESSOA</span>
+        <div class="big-number">15+</div>
+        <p>Anos de experiência em estúdio, produção musical, formação artística e articulação de cena.</p>
+      </aside>
+    </header>
+
+    <section id="conteudos">
+      <div class="section-title">
+        <h2>Últimos<br>conteúdos</h2>
+        <p class="section-note">Nesta versão, você troca os links no bloco de configuração. Para puxar sempre o último post automaticamente, precisa usar API com autenticação.</p>
+      </div>
+
+      <div class="content-grid">
+        <article class="media-card">
+          <h3>TikTok</h3>
+          <div id="tiktokEmbed" class="embed-box">
+            <div class="fallback">Carregando TikTok...</div>
+          </div>
+        </article>
+
+        <article class="media-card">
+          <h3>Instagram</h3>
+          <div id="instagramEmbed" class="embed-box">
+            <div class="fallback">Carregando Instagram...</div>
+          </div>
+        </article>
+
+        <article class="media-card">
+          <h3>YouTube</h3>
+          <div id="youtubeEmbed" class="embed-box youtube-box">
+            <div class="fallback">Carregando YouTube...</div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="sobre">
+      <div class="about">
+        <div class="about-panel">
+          <h3>Estúdio como território criativo</h3>
+          <p>Do Mutuca ao BBS Lab, uma trajetória ligada à produção, gravação, direção e desenvolvimento de artistas.</p>
+        </div>
+
+        <div class="about-text">
+          <p><strong>Big Jesi</strong>, também conhecido como Daniel Jesi, é produtor musical, beatmaker, diretor artístico e articulador cultural paraibano.</p>
+          <p>Sua trajetória passa pela cena independente como músico e baixista, incluindo a Burro Morto, e por uma atuação de 15 anos no estúdio Mutuca, espaço que marcou a música no centro de João Pessoa e aproximou seu trabalho de artistas como Cabroeira, Chico César, Totonho e Cátia de França.</p>
+          <p>Atualmente, à frente do <strong>BBS Lab</strong>, desenvolve projetos que conectam produção musical, formação artística, beatmaking, direção de estúdio e circulação cultural. Também é criador do <strong>#30dias30beats</strong>, iniciativa que mobiliza beatmakers em torno da criação diária e da troca coletiva.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="fotos">
+      <div class="section-title">
+        <h2>Fotos</h2>
+        <p class="section-note">Troque os arquivos da pasta /img pelas suas fotos. Aqui funciona bem com imagens do estúdio, retratos, bastidores e shows.</p>
+      </div>
+
+      <div class="photo-grid">
+        <div class="photo-card">
+          <img src="img/foto-1.jpg" alt="Big Jesi no estúdio" onerror="this.src='https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=1200&auto=format&fit=crop';">
+          <span>estúdio</span>
+        </div>
+        <div class="photo-card">
+          <img src="img/foto-2.jpg" alt="BBS Lab" onerror="this.src='https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=1200&auto=format&fit=crop';">
+          <span>BBS Lab</span>
+        </div>
+        <div class="photo-card">
+          <img src="img/foto-3.jpg" alt="Show Big Jesi" onerror="this.src='https://images.unsplash.com/photo-1516280440614-37939bbacd81?q=80&w=1200&auto=format&fit=crop';">
+          <span>ao vivo</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="trabalhos">
+      <div class="section-title">
+        <h2>Trabalhos</h2>
+        <p class="section-note">Organização simples para contratantes, curadores, imprensa e artistas entenderem rapidamente o que você oferece.</p>
+      </div>
+
+      <div class="work-grid">
+        <article class="work-card">
+          <div>
+            <h3>Produção musical</h3>
+            <p>Criação de beats, arranjos, gravação, direção de voz, construção estética e finalização fonográfica.</p>
+          </div>
+          <span class="tag">estúdio</span>
+        </article>
+
+        <article class="work-card">
+          <div>
+            <h3>Direção artística</h3>
+            <p>Desenvolvimento de identidade sonora, repertório, show, narrativa e presença de projeto.</p>
+          </div>
+          <span class="tag">projeto</span>
+        </article>
+
+        <article class="work-card">
+          <div>
+            <h3>Oficinas e formação</h3>
+            <p>Vivências sobre beatmaking, produção musical, organização de carreira e processos criativos em estúdio.</p>
+          </div>
+          <span class="tag">formação</span>
+        </article>
+
+        <article class="work-card">
+          <div>
+            <h3>BBS Lab / #30dias30beats</h3>
+            <p>Projetos de articulação de cena, criação coletiva, desenvolvimento de artistas e circulação cultural.</p>
+          </div>
+          <span class="tag">cena</span>
+        </article>
+      </div>
+    </section>
+
+    <section id="imprensa">
+      <div class="section-title">
+        <h2>Imprensa</h2>
+        <p class="section-note">Aqui entram links de matérias, entrevistas, releases, clipes e projetos destacados.</p>
+      </div>
+
+      <div class="press-grid">
+        <a class="press-card" href="https://oinimigo.org/2021/09/07/daniel-jesi-criador-do-30dias30beats-estreia-em-disco/" target="_blank" rel="noopener">
+          <h3>O Inimigo</h3>
+          <p>Daniel Jesi, criador do #30dias30beats, estreia em disco.</p>
+        </a>
+
+        <a class="press-card" href="https://www.busridenotes.com.br/2022/03/29/big-jesi-e-o-30dias30beats/" target="_blank" rel="noopener">
+          <h3>Bus Ride Notes</h3>
+          <p>Big Jesi e o #30dias30beats.</p>
+        </a>
+
+        <a class="press-card" href="https://paraibacriativa.com.br/artista/big-jesi/" target="_blank" rel="noopener">
+          <h3>Paraíba Criativa</h3>
+          <p>Perfil artístico de Big Jesi.</p>
+        </a>
+      </div>
+    </section>
+
+    <section id="contato">
+      <div class="contact-box">
+        <div>
+          <h2>Vamos criar?</h2>
+          <p>Para produção musical, direção artística, oficinas, shows, projetos culturais e parcerias com o BBS Lab.</p>
+        </div>
+        <div class="contact-actions">
+          <a class="btn" href="mailto:seuemail@email.com">email</a>
+          <a class="btn" href="https://wa.me/5583999999999" target="_blank" rel="noopener">whatsapp</a>
+          <a class="btn" href="https://www.instagram.com/SEUUSUARIO" target="_blank" rel="noopener">instagram</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>© Big Jesi / BBS Lab</span>
+    <span>protótipo one page</span>
+  </footer>
+
+  <script>
+    /*
+      CONFIGURAÇÃO RÁPIDA
+      Troque estes links pelos seus posts reais.
+      Esta versão funciona hoje, sem API e sem login.
+    */
+
+    const siteConfig = {
+      tiktokUrl: "https://www.tiktok.com/@tiktok/video/6718335390845095173",
+      instagramUrl: "https://www.instagram.com/p/CODE_DO_POST/",
+      youtubeVideoId: "dQw4w9WgXcQ"
+    };
+
+    function getTikTokVideoId(url) {
+      const match = url.match(/video\/(\d+)/);
+      return match ? match[1] : null;
+    }
+
+    function renderTikTok() {
+      const box = document.getElementById("tiktokEmbed");
+      const id = getTikTokVideoId(siteConfig.tiktokUrl);
+
+      if (!id) {
+        box.innerHTML = `<div class="fallback">Cole um link válido de vídeo do TikTok no siteConfig.</div>`;
+        return;
+      }
+
+      box.innerHTML = `
+        <iframe
+          src="https://www.tiktok.com/player/v1/${id}"
+          height="600"
+          allow="fullscreen"
+          title="TikTok Big Jesi">
+        </iframe>
+      `;
+    }
+
+    function renderInstagram() {
+      const box = document.getElementById("instagramEmbed");
+
+      if (!siteConfig.instagramUrl.includes("instagram.com")) {
+        box.innerHTML = `<div class="fallback">Cole um link válido de post/reels do Instagram no siteConfig.</div>`;
+        return;
+      }
+
+      box.innerHTML = `
+        <blockquote class="instagram-media" data-instgrm-permalink="${siteConfig.instagramUrl}" data-instgrm-version="14" style="background:#fff; border:0; margin:0 auto; max-width:540px; min-width:260px; width:100%;"></blockquote>
+      `;
+
+      const script = document.createElement("script");
+      script.async = true;
+      script.src = "https://www.instagram.com/embed.js";
+      document.body.appendChild(script);
+    }
+
+    function renderYouTube() {
+      const box = document.getElementById("youtubeEmbed");
+      box.innerHTML = `
+        <iframe
+          src="https://www.youtube.com/embed/${siteConfig.youtubeVideoId}"
+          title="YouTube Big Jesi"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
+      `;
+    }
+
+    renderTikTok();
+    renderInstagram();
+    renderYouTube();
+  </script>
+</body>
+</html>
