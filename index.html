@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -686,169 +687,123 @@
   </footer>
 
   <script>
-  async function loadLatestContent() {
-    try {
-      const response = await fetch('/api/latest-content', {
-        cache: 'no-store'
-      });
+    async function loadLatestContent() {
+      try {
+        const response = await fetch('/api/latest-content', {
+          cache: 'no-store'
+        });
 
-      const data = await response.json();
+        const data = await response.json();
 
-      renderTikTok(data.tiktokUrl);
+        renderTikTok(data.tiktokUrl);
+        renderInstagramBlock('instagramBigJesiEmbed', data.instagramBigJesiUrl, 'Instagram @bigjesi');
+        renderInstagramBlock('instagramBbsLabEmbed', data.instagramBbsLabUrl, 'Instagram @bbs_lab');
+        renderYouTube(data.youtubeVideoId);
 
-      renderInstagramBlock(
-        'instagramBigJesiEmbed',
-        data.instagramBigJesiUrl,
-        'Instagram @bigjesi'
-      );
-
-      renderInstagramBlock(
-        'instagramBbsLabEmbed',
-        data.instagramBbsLabUrl,
-        'Instagram @bbs_lab'
-      );
-
-      renderYouTube(data.youtubeVideoId);
-
-    } catch (error) {
-      console.warn(
-        'Erro ao carregar conteúdo:',
-        error.message
-      );
-    }
-  }
-
-  function renderTikTok(url) {
-
-    const box =
-      document.getElementById(
-        'tiktokEmbed'
-      );
-
-    if (!url) {
-
-      box.innerHTML =
-        '<div class="fallback">TikTok não configurado.</div>';
-
-      return;
+      } catch (error) {
+        console.warn('Erro ao carregar conteúdo:', error.message);
+      }
     }
 
-    const videoId =
-      url.split('/video/')[1]
-        ?.split('?')[0];
+    function renderTikTok(url) {
+      const box = document.getElementById('tiktokEmbed');
 
-    if (!videoId) {
+      if (!box) return;
 
-      box.innerHTML =
-        '<div class="fallback">Link do TikTok inválido.</div>';
+      if (!url) {
+        box.innerHTML = '<div class="fallback">TikTok não configurado.</div>';
+        return;
+      }
 
-      return;
+      const videoId = url.split('/video/')[1]?.split('?')[0];
+
+      if (!videoId) {
+        box.innerHTML = '<div class="fallback">Link do TikTok inválido.</div>';
+        return;
+      }
+
+      box.innerHTML = `
+        <iframe
+          src="https://www.tiktok.com/player/v1/${videoId}"
+          height="600"
+          allow="fullscreen"
+          title="TikTok Big Jesi">
+        </iframe>
+      `;
     }
 
-    box.innerHTML = `
-      <iframe
-        src="https://www.tiktok.com/player/v1/${videoId}"
-        height="600"
-        allow="fullscreen"
-        title="TikTok Big Jesi">
-      </iframe>
-    `;
-  }
+    function renderInstagramBlock(elementId, postUrl, label) {
+      const box = document.getElementById(elementId);
 
-  function renderInstagramBlock(
-    elementId,
-    postUrl,
-    label
-  ) {
+      if (!box) return;
 
-    const box =
-      document.getElementById(
-        elementId
-      );
+      if (!postUrl) {
+        box.innerHTML = `<div class="fallback">${label} não configurado.</div>`;
+        return;
+      }
 
-    if (!postUrl) {
+      box.innerHTML = `
+        <blockquote
+          class="instagram-media"
+          data-instgrm-permalink="${postUrl}"
+          data-instgrm-version="14"
+          style="
+            background:#fff;
+            border:0;
+            margin:0 auto;
+            max-width:540px;
+            min-width:260px;
+            width:100%;
+          ">
+        </blockquote>
+      `;
 
-      box.innerHTML =
-        `<div class="fallback">${label} não configurado.</div>`;
-
-      return;
+      loadInstagramScript();
     }
 
-    box.innerHTML = `
-      <blockquote
-        class="instagram-media"
-        data-instgrm-permalink="${postUrl}"
-        data-instgrm-version="14"
-        style="
-          background:#fff;
-          border:0;
-          margin:0 auto;
-          max-width:540px;
-          min-width:260px;
-          width:100%;
-        ">
-      </blockquote>
-    `;
+    function loadInstagramScript() {
+      const oldScript = document.querySelector('script[src="https://www.instagram.com/embed.js"]');
 
-    loadInstagramScript();
-  }
+      if (oldScript) {
+        oldScript.remove();
+      }
 
-  function loadInstagramScript() {
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://www.instagram.com/embed.js';
 
-    const oldScript =
-      document.querySelector(
-        'script[src="https://www.instagram.com/embed.js"]'
-      );
-
-    if (oldScript) {
-      oldScript.remove();
+      document.body.appendChild(script);
     }
 
-    const script =
-      document.createElement('script');
+    function renderYouTube(videoId) {
+      const box = document.getElementById('youtubeEmbed');
 
-    script.async = true;
+      if (!box) return;
 
-    script.src =
-      'https://www.instagram.com/embed.js';
+      if (!videoId) {
+        box.innerHTML = '<div class="fallback">YouTube não configurado.</div>';
+        return;
+      }
 
-    document.body.appendChild(script);
-  }
-
-  function renderYouTube(videoId) {
-
-    const box =
-      document.getElementById(
-        'youtubeEmbed'
-      );
-
-    if (!videoId) {
-
-      box.innerHTML =
-        '<div class="fallback">YouTube não configurado.</div>';
-
-      return;
+      box.innerHTML = `
+        <iframe
+          src="https://www.youtube.com/embed/${videoId}"
+          title="YouTube Shorts Big Jesi"
+          allow="
+            accelerometer;
+            autoplay;
+            clipboard-write;
+            encrypted-media;
+            gyroscope;
+            picture-in-picture;
+            web-share
+          "
+          allowfullscreen>
+        </iframe>
+      `;
     }
 
-    box.innerHTML = `
-      <iframe
-        src="https://www.youtube.com/embed/${videoId}"
-        title="YouTube Shorts Big Jesi"
-        allow="
-          accelerometer;
-          autoplay;
-          clipboard-write;
-          encrypted-media;
-          gyroscope;
-          picture-in-picture;
-          web-share
-        "
-        allowfullscreen>
-      </iframe>
-    `;
-  }
-
-  loadLatestContent();
-</script>
+    loadLatestContent();
+  </script>
 </body>
 </html>
