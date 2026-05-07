@@ -1,198 +1,282 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Big Jesi | BBS Lab</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #080808;
+      color: #f5f2e8;
+    }
+
+    header, section, footer {
+      max-width: 1100px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      font-size: 72px;
+      margin: 0;
+      color: #f2c230;
+      line-height: 0.9;
+    }
+
+    h2 {
+      font-size: 36px;
+      color: #f2c230;
+    }
+
+    p {
+      color: #c9c1b1;
+      line-height: 1.6;
+    }
+
+    .links a, .btn {
+      display: inline-block;
+      margin: 6px;
+      padding: 10px 14px;
+      border: 1px solid #f2c230;
+      color: #f2c230;
+      text-decoration: none;
+      border-radius: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: #151515;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 20px;
+      padding: 18px;
+      overflow: hidden;
+    }
+
+    .embed-box {
+      width: 100%;
+      min-height: 520px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f0f0f;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .youtube-box {
+      aspect-ratio: 9 / 16;
+      min-height: 520px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .photos img {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      border-radius: 18px;
+    }
+
+    footer {
+      font-size: 14px;
+      color: #888;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <p>BBS LAB / JOÃO PESSOA</p>
+  <h1>BIG<br>JESI</h1>
+  <p>
+    Produtor musical, beatmaker e diretor artístico paraibano.
+    Do Mutuca ao BBS Lab, conectando estúdio, cena independente, beats e território.
+  </p>
+
+  <div class="links">
+    <a href="https://www.instagram.com/bigjesi/" target="_blank">Instagram</a>
+    <a href="https://www.instagram.com/bbs_lab/" target="_blank">BBS Lab</a>
+    <a href="https://www.tiktok.com/@bigjesi" target="_blank">TikTok</a>
+    <a href="https://www.youtube.com/@jesiennes" target="_blank">YouTube</a>
+  </div>
+</header>
+
+<section>
+  <h2>Últimos conteúdos</h2>
+
+  <div class="grid">
+
+    <div class="card">
+      <h3>TikTok</h3>
+      <div id="tiktokEmbed" class="embed-box">
+        <p>Carregando TikTok...</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Instagram Big Jesi</h3>
+      <div id="instagramBigJesiEmbed" class="embed-box">
+        <p>Carregando Instagram...</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>YouTube Shorts</h3>
+      <div id="youtubeEmbed" class="embed-box youtube-box">
+        <p>Carregando YouTube...</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <h2>Sobre</h2>
+  <p>
+    Big Jesi, também conhecido como Daniel Jesi, é produtor musical,
+    beatmaker, diretor artístico e articulador cultural paraibano.
+    Sua trajetória passa pela cena independente como músico e baixista,
+    incluindo a Burro Morto, e por uma atuação de 15 anos no estúdio Mutuca.
+  </p>
+  <p>
+    Atualmente, à frente do BBS Lab, desenvolve projetos que conectam
+    produção musical, formação artística, beatmaking, direção de estúdio
+    e circulação cultural. Também é criador do #30dias30beats.
+  </p>
+</section>
+
+<section class="photos">
+  <h2>Fotos</h2>
+
+  <div class="grid">
+    <img src="img/big-jesi-rua.jpg" alt="Big Jesi" />
+    <img src="img/big-jesi-bixarte.jpg" alt="Big Jesi e Bixarte" />
+    <img src="img/big-jesi-cara.jpg" alt="Big Jesi retrato" />
+  </div>
+</section>
+
+<section>
+  <h2>Trabalhos</h2>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Produção musical</h3>
+      <p>Beats, arranjos, gravação, direção de voz e finalização fonográfica.</p>
+    </div>
+
+    <div class="card">
+      <h3>Direção artística</h3>
+      <p>Desenvolvimento de identidade sonora, repertório, show e narrativa.</p>
+    </div>
+
+    <div class="card">
+      <h3>Oficinas</h3>
+      <p>Formações sobre beatmaking, produção musical e processos criativos.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Contato</h2>
+  <p>Para produção musical, direção artística, oficinas, shows e projetos culturais.</p>
+
+  <div class="links">
+    <a href="mailto:seuemail@email.com">E-mail</a>
+    <a href="https://wa.me/5583999999999" target="_blank">WhatsApp</a>
+    <a href="https://www.instagram.com/bigjesi/" target="_blank">Instagram</a>
+  </div>
+</section>
+
+<footer>
+  © Big Jesi / BBS Lab
+</footer>
+
 <script>
   async function loadLatestContent() {
-    try {
+    const response = await fetch("/api/latest-content");
+    const data = await response.json();
 
-      const response = await fetch(
-        '/api/latest-content',
-        { cache: 'no-store' }
-      );
-
-      if (!response.ok) {
-        throw new Error(
-          'Erro na API: ' + response.status
-        );
-      }
-
-      const data = await response.json();
-
-      renderTikTok(
-        data.tiktokUrl || ''
-      );
-
-      renderInstagramBlock(
-        'instagramBigJesiEmbed',
-        data.instagramBigJesiUrl || '',
-        'Instagram @bigjesi'
-      );
-
-      renderInstagramBlock(
-        'instagramBbsLabEmbed',
-        data.instagramBbsLabUrl || '',
-        'Instagram @bbs_lab'
-      );
-
-      renderYouTube(
-        data.youtubeVideoId || ''
-      );
-
-    } catch (error) {
-
-      console.log(
-        'Erro ao carregar conteúdo:',
-        error
-      );
-
-    }
+    renderTikTok(data.tiktokUrl);
+    renderInstagram("instagramBigJesiEmbed", data.instagramBigJesiUrl);
+    renderYouTube(data.youtubeVideoId);
   }
 
   function renderTikTok(url) {
-
-    const box =
-      document.getElementById(
-        'tiktokEmbed'
-      );
-
-    if (!box) return;
+    const box = document.getElementById("tiktokEmbed");
 
     if (!url) {
-
-      box.innerHTML =
-        '<div class="fallback">TikTok não configurado.</div>';
-
+      box.innerHTML = "<p>TikTok não configurado.</p>";
       return;
     }
 
-    const parts =
-      url.split('/video/');
+    const videoId = url.split("/video/")[1]?.split("?")[0];
 
-    const videoId =
-      parts[1]
-        ? parts[1].split('?')[0]
-        : '';
-
-    if (!videoId) {
-
-      box.innerHTML =
-        '<div class="fallback">Link do TikTok inválido.</div>';
-
-      return;
-    }
-
-    box.innerHTML =
-      '<iframe ' +
-      'src="https://www.tiktok.com/player/v1/' +
-      videoId +
-      '" ' +
-      'height="600" ' +
-      'allow="fullscreen" ' +
-      'title="TikTok Big Jesi">' +
-      '</iframe>';
+    box.innerHTML = `
+      <iframe
+        src="https://www.tiktok.com/player/v1/${videoId}"
+        height="600"
+        allow="fullscreen"
+        title="TikTok Big Jesi">
+      </iframe>
+    `;
   }
 
-  function renderInstagramBlock(
-    elementId,
-    postUrl,
-    label
-  ) {
+  function renderInstagram(elementId, url) {
+    const box = document.getElementById(elementId);
 
-    const box =
-      document.getElementById(
-        elementId
-      );
-
-    if (!box) return;
-
-    if (!postUrl) {
-
-      box.innerHTML =
-        '<div class="fallback">' +
-        label +
-        ' não configurado.</div>';
-
+    if (!url) {
+      box.innerHTML = "<p>Instagram não configurado.</p>";
       return;
     }
 
-    box.innerHTML =
-      '<blockquote ' +
-      'class="instagram-media" ' +
-      'data-instgrm-permalink="' +
-      postUrl +
-      '" ' +
-      'data-instgrm-version="14" ' +
-      'style="' +
-      'background:#fff;' +
-      'border:0;' +
-      'margin:0 auto;' +
-      'max-width:540px;' +
-      'min-width:260px;' +
-      'width:100%;' +
-      '">' +
-      '</blockquote>';
+    box.innerHTML = `
+      <blockquote
+        class="instagram-media"
+        data-instgrm-permalink="${url}"
+        data-instgrm-version="14"
+        style="background:#fff; width:100%; max-width:540px; margin:auto;">
+      </blockquote>
+    `;
 
-    loadInstagramScript();
-  }
-
-  function loadInstagramScript() {
-
-    const existingScript =
-      document.querySelector(
-        'script[src="https://www.instagram.com/embed.js"]'
-      );
-
-    if (existingScript) {
-      existingScript.remove();
-    }
-
-    const script =
-      document.createElement('script');
-
+    const script = document.createElement("script");
     script.async = true;
-
-    script.src =
-      'https://www.instagram.com/embed.js';
-
-    document.body.appendChild(
-      script
-    );
+    script.src = "https://www.instagram.com/embed.js";
+    document.body.appendChild(script);
   }
 
   function renderYouTube(videoId) {
-
-    const box =
-      document.getElementById(
-        'youtubeEmbed'
-      );
-
-    if (!box) return;
+    const box = document.getElementById("youtubeEmbed");
 
     if (!videoId) {
-
-      box.innerHTML =
-        '<div class="fallback">YouTube não configurado.</div>';
-
+      box.innerHTML = "<p>YouTube não configurado.</p>";
       return;
     }
 
-    box.innerHTML =
-      '<iframe ' +
-      'src="https://www.youtube.com/embed/' +
-      videoId +
-      '" ' +
-      'title="YouTube Shorts Big Jesi" ' +
-      'allow="' +
-      'accelerometer;' +
-      'autoplay;' +
-      'clipboard-write;' +
-      'encrypted-media;' +
-      'gyroscope;' +
-      'picture-in-picture;' +
-      'web-share' +
-      '" ' +
-      'allowfullscreen>' +
-      '</iframe>';
+    box.innerHTML = `
+      <iframe
+        src="https://www.youtube.com/embed/${videoId}"
+        title="YouTube Shorts Big Jesi"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    `;
   }
 
   loadLatestContent();
 </script>
+
 </body>
 </html>
