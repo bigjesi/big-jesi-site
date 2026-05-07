@@ -1,72 +1,198 @@
 <script>
   async function loadLatestContent() {
     try {
-      const response = await fetch('/api/latest-content', { cache: 'no-store' });
+
+      const response = await fetch(
+        '/api/latest-content',
+        { cache: 'no-store' }
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          'Erro na API: ' + response.status
+        );
+      }
+
       const data = await response.json();
 
-      renderTikTok(data.tiktokUrl);
-      renderInstagramBlock('instagramBigJesiEmbed', data.instagramBigJesiUrl, 'Instagram @bigjesi');
-      renderInstagramBlock('instagramBbsLabEmbed', data.instagramBbsLabUrl, 'Instagram @bbs_lab');
-      renderYouTube(data.youtubeVideoId);
+      renderTikTok(
+        data.tiktokUrl || ''
+      );
+
+      renderInstagramBlock(
+        'instagramBigJesiEmbed',
+        data.instagramBigJesiUrl || '',
+        'Instagram @bigjesi'
+      );
+
+      renderInstagramBlock(
+        'instagramBbsLabEmbed',
+        data.instagramBbsLabUrl || '',
+        'Instagram @bbs_lab'
+      );
+
+      renderYouTube(
+        data.youtubeVideoId || ''
+      );
+
     } catch (error) {
-      console.log('Erro ao carregar conteúdo:', error);
+
+      console.log(
+        'Erro ao carregar conteúdo:',
+        error
+      );
+
     }
   }
 
   function renderTikTok(url) {
-    const box = document.getElementById('tiktokEmbed');
+
+    const box =
+      document.getElementById(
+        'tiktokEmbed'
+      );
+
     if (!box) return;
 
     if (!url) {
-      box.innerHTML = '<div class="fallback">TikTok não configurado.</div>';
+
+      box.innerHTML =
+        '<div class="fallback">TikTok não configurado.</div>';
+
       return;
     }
 
-    const videoId = url.split('/video/')[1]?.split('?')[0];
+    const parts =
+      url.split('/video/');
+
+    const videoId =
+      parts[1]
+        ? parts[1].split('?')[0]
+        : '';
 
     if (!videoId) {
-      box.innerHTML = '<div class="fallback">Link do TikTok inválido.</div>';
-      return;
-    }
 
-    box.innerHTML = '<iframe src="https://www.tiktok.com/player/v1/' + videoId + '" height="600" allow="fullscreen" title="TikTok Big Jesi"></iframe>';
-  }
+      box.innerHTML =
+        '<div class="fallback">Link do TikTok inválido.</div>';
 
-  function renderInstagramBlock(elementId, postUrl, label) {
-    const box = document.getElementById(elementId);
-    if (!box) return;
-
-    if (!postUrl) {
-      box.innerHTML = '<div class="fallback">' + label + ' não configurado.</div>';
       return;
     }
 
     box.innerHTML =
-      '<blockquote class="instagram-media" data-instgrm-permalink="' +
+      '<iframe ' +
+      'src="https://www.tiktok.com/player/v1/' +
+      videoId +
+      '" ' +
+      'height="600" ' +
+      'allow="fullscreen" ' +
+      'title="TikTok Big Jesi">' +
+      '</iframe>';
+  }
+
+  function renderInstagramBlock(
+    elementId,
+    postUrl,
+    label
+  ) {
+
+    const box =
+      document.getElementById(
+        elementId
+      );
+
+    if (!box) return;
+
+    if (!postUrl) {
+
+      box.innerHTML =
+        '<div class="fallback">' +
+        label +
+        ' não configurado.</div>';
+
+      return;
+    }
+
+    box.innerHTML =
+      '<blockquote ' +
+      'class="instagram-media" ' +
+      'data-instgrm-permalink="' +
       postUrl +
-      '" data-instgrm-version="14" style="background:#fff; border:0; margin:0 auto; max-width:540px; min-width:260px; width:100%;"></blockquote>';
+      '" ' +
+      'data-instgrm-version="14" ' +
+      'style="' +
+      'background:#fff;' +
+      'border:0;' +
+      'margin:0 auto;' +
+      'max-width:540px;' +
+      'min-width:260px;' +
+      'width:100%;' +
+      '">' +
+      '</blockquote>';
 
     loadInstagramScript();
   }
 
   function loadInstagramScript() {
-    const script = document.createElement('script');
+
+    const existingScript =
+      document.querySelector(
+        'script[src="https://www.instagram.com/embed.js"]'
+      );
+
+    if (existingScript) {
+      existingScript.remove();
+    }
+
+    const script =
+      document.createElement('script');
+
     script.async = true;
-    script.src = 'https://www.instagram.com/embed.js';
-    document.body.appendChild(script);
+
+    script.src =
+      'https://www.instagram.com/embed.js';
+
+    document.body.appendChild(
+      script
+    );
   }
 
   function renderYouTube(videoId) {
-    const box = document.getElementById('youtubeEmbed');
+
+    const box =
+      document.getElementById(
+        'youtubeEmbed'
+      );
+
     if (!box) return;
 
     if (!videoId) {
-      box.innerHTML = '<div class="fallback">YouTube não configurado.</div>';
+
+      box.innerHTML =
+        '<div class="fallback">YouTube não configurado.</div>';
+
       return;
     }
 
-    box.innerHTML = '<iframe src="https://www.youtube.com/embed/' + videoId + '" title="YouTube Shorts Big Jesi" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
+    box.innerHTML =
+      '<iframe ' +
+      'src="https://www.youtube.com/embed/' +
+      videoId +
+      '" ' +
+      'title="YouTube Shorts Big Jesi" ' +
+      'allow="' +
+      'accelerometer;' +
+      'autoplay;' +
+      'clipboard-write;' +
+      'encrypted-media;' +
+      'gyroscope;' +
+      'picture-in-picture;' +
+      'web-share' +
+      '" ' +
+      'allowfullscreen>' +
+      '</iframe>';
   }
 
   loadLatestContent();
 </script>
+</body>
+</html>
