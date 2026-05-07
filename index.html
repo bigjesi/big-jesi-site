@@ -31,6 +31,7 @@
       padding: 0;
       overflow: hidden;
       width: 100%;
+      max-width: 540px;
     }
 
     * { box-sizing: border-box; }
@@ -276,8 +277,8 @@
 
     .content-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(320px, 1fr));
-      gap: 28px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
     }
 
     .photo-grid, .press-grid {
@@ -585,7 +586,7 @@
         </p>
       </div>
 
-      <div class="spotify-card">
+      <div class="spotify-card" style="margin: 0 auto;">
         <iframe
           style="border-radius:18px; width:100%;"
           src="https://open.spotify.com/embed/playlist/1JNxzCdugAueh5TvDGJM2t?utm_source=generator"
