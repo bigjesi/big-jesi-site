@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -11,13 +12,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
   <style>
-    .spotify-card {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid var(--line);
-  border-radius: 24px;
-  padding: 18px;
-  overflow: hidden;
-}
     :root {
       --bg: #080808;
       --card: #171717;
@@ -27,6 +21,14 @@
       --yellow: #f2c230;
       --orange: #e85825;
       --line: rgba(245, 242, 232, 0.14);
+    }
+
+    .spotify-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 18px;
+      overflow: hidden;
     }
 
     * { box-sizing: border-box; }
@@ -496,6 +498,7 @@
       </a>
       <div class="nav-links">
         <a href="#conteudos">conteúdos</a>
+        <a href="#spotify">ouça</a>
         <a href="#sobre">sobre</a>
         <a href="#fotos">fotos</a>
         <a href="#trabalhos">trabalhos</a>
@@ -568,6 +571,29 @@
           </div>
           <a class="btn" href="https://www.youtube.com/@jesiennes" target="_blank" rel="noopener">abrir YouTube</a>
         </article>
+      </div>
+    </section>
+
+    <section id="spotify">
+      <div class="section-title">
+        <h2>Ouça</h2>
+
+        <p class="section-note">
+          Produções, referências e caminhos sonoros de Big Jesi.
+        </p>
+      </div>
+
+      <div class="spotify-card">
+        <iframe
+          style="border-radius:18px"
+          src="https://open.spotify.com/embed/playlist/1JNxzCdugAueh5TvDGJM2t?utm_source=generator"
+          width="100%"
+          height="420"
+          frameborder="0"
+          allowfullscreen=""
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy">
+        </iframe>
       </div>
     </section>
 
@@ -812,30 +838,7 @@
 
     loadLatestContent();
     
-    <section id="spotify">
-  <div class="section-title">
-    <h2>Ouça</h2>
 
-    <p class="section-note">
-      Produções, referências e caminhos sonoros de Big Jesi.
-    </p>
-  </div>
-
-  <div class="spotify-card">
-
-    <iframe
-      style="border-radius:18px"
-      src="https://open.spotify.com/embed/playlist/1JNxzCdugAueh5TvDGJM2t?utm_source=generator"
-      width="100%"
-      height="420"
-      frameborder="0"
-      allowfullscreen=""
-      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-      loading="lazy">
-    </iframe>
-
-  </div>
-</section>
 
     
   </script>
