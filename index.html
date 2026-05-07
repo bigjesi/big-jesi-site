@@ -804,6 +804,94 @@
     }
 
     loadLatestContent();
-  </script>
+  <script>
+  async function loadLatestContent() {
+    try {
+      const response = await fetch('/api/latest-content', {
+        cache: 'no-store'
+      });
+
+      const data = await response.json();
+
+      renderTikTok(data.tiktokUrl);
+      renderInstagramIframe('instagramBigJesiEmbed', data.instagramBigJesiUrl, 'Instagram @bigjesi');
+      renderInstagramIframe('instagramBbsLabEmbed', data.instagramBbsLabUrl, 'Instagram @bbs_lab');
+      renderYouTube(data.youtubeVideoId);
+
+    } catch (error) {
+      console.warn('Erro ao carregar conteúdo:', error.message);
+    }
+  }
+
+  function renderTikTok(url) {
+    const box = document.getElementById('tiktokEmbed');
+    if (!box) return;
+
+    if (!url) {
+      box.innerHTML = '<div class="fallback">TikTok não configurado.</div>';
+      return;
+    }
+
+    const videoId = url.split('/video/')[1]?.split('?')[0];
+
+    if (!videoId) {
+      box.innerHTML = '<div class="fallback">Link do TikTok inválido.</div>';
+      return;
+    }
+
+    box.innerHTML = `
+      <iframe
+        src="https://www.tiktok.com/player/v1/${videoId}"
+        allow="fullscreen"
+        title="TikTok Big Jesi">
+      </iframe>
+    `;
+  }
+
+  function renderInstagramIframe(elementId, postUrl, label) {
+    const box = document.getElementById(elementId);
+    if (!box) return;
+
+    if (!postUrl) {
+      box.innerHTML = `<div class="fallback">${label} não configurado.</div>`;
+      return;
+    }
+
+    const cleanUrl = postUrl.split('?')[0].replace(/\/$/, '');
+    const embedUrl = cleanUrl + '/embed';
+
+    box.innerHTML = `
+      <iframe
+        src="${embedUrl}"
+        title="${label}"
+        scrolling="no"
+        allowtransparency="true"
+        allowfullscreen>
+      </iframe>
+    `;
+  }
+
+  function renderYouTube(videoId) {
+    const box = document.getElementById('youtubeEmbed');
+    if (!box) return;
+
+    if (!videoId) {
+      box.innerHTML = '<div class="fallback">YouTube não configurado.</div>';
+      return;
+    }
+
+    box.innerHTML = `
+      <iframe
+        src="https://www.youtube.com/embed/${videoId}"
+        title="YouTube Shorts Big Jesi"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
+    `;
+  }
+
+  loadLatestContent();
+</script>
+  
 </body>
 </html>
