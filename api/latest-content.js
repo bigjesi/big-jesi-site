@@ -9,7 +9,7 @@ export default async function handler(req, res) {
       "https://www.instagram.com/p/DLgTzSXNn9b/",
 
     instagramBbsLabUrl:
-      "",
+      "https://www.instagram.com/reel/DYBH-ANi1e8/",
 
     youtubeVideoId:
       "guJcyQG44pE"
