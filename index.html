@@ -5,133 +5,67 @@
       const data = await response.json();
 
       renderTikTok(data.tiktokUrl);
-      renderInstagramBlock(
-        'instagramBigJesiEmbed',
-        data.instagramBigJesiUrl,
-        'Instagram @bigjesi'
-      );
-
-      renderInstagramBlock(
-        'instagramBbsLabEmbed',
-        data.instagramBbsLabUrl,
-        'Instagram @bbs_lab'
-      );
-
+      renderInstagramBlock('instagramBigJesiEmbed', data.instagramBigJesiUrl, 'Instagram @bigjesi');
+      renderInstagramBlock('instagramBbsLabEmbed', data.instagramBbsLabUrl, 'Instagram @bbs_lab');
       renderYouTube(data.youtubeVideoId);
-
     } catch (error) {
-      console.warn('Erro ao carregar conteúdo:', error.message);
+      console.log('Erro ao carregar conteúdo:', error);
     }
   }
 
   function renderTikTok(url) {
     const box = document.getElementById('tiktokEmbed');
+    if (!box) return;
 
     if (!url) {
-      box.innerHTML =
-        '<div class="fallback">TikTok não configurado.</div>';
+      box.innerHTML = '<div class="fallback">TikTok não configurado.</div>';
       return;
     }
 
-    const videoId =
-      url.split('/video/')[1]?.split('?')[0];
+    const videoId = url.split('/video/')[1]?.split('?')[0];
 
     if (!videoId) {
-      box.innerHTML =
-        '<div class="fallback">Link do TikTok inválido.</div>';
+      box.innerHTML = '<div class="fallback">Link do TikTok inválido.</div>';
       return;
     }
 
-    box.innerHTML = `
-      <iframe
-        src="https://www.tiktok.com/player/v1/${videoId}"
-        height="600"
-        allow="fullscreen"
-        title="TikTok Big Jesi">
-      </iframe>
-    `;
+    box.innerHTML = '<iframe src="https://www.tiktok.com/player/v1/' + videoId + '" height="600" allow="fullscreen" title="TikTok Big Jesi"></iframe>';
   }
 
-  function renderInstagramBlock(
-    elementId,
-    postUrl,
-    label
-  ) {
-
+  function renderInstagramBlock(elementId, postUrl, label) {
     const box = document.getElementById(elementId);
+    if (!box) return;
 
     if (!postUrl) {
-      box.innerHTML =
-        `<div class="fallback">${label} não configurado.</div>`;
+      box.innerHTML = '<div class="fallback">' + label + ' não configurado.</div>';
       return;
     }
 
-    box.innerHTML = `
-      <blockquote
-        class="instagram-media"
-        data-instgrm-permalink="${postUrl}"
-        data-instgrm-version="14"
-        style="
-          background:#fff;
-          border:0;
-          margin:0 auto;
-          max-width:540px;
-          min-width:260px;
-          width:100%;
-        ">
-      </blockquote>
-    `;
+    box.innerHTML =
+      '<blockquote class="instagram-media" data-instgrm-permalink="' +
+      postUrl +
+      '" data-instgrm-version="14" style="background:#fff; border:0; margin:0 auto; max-width:540px; min-width:260px; width:100%;"></blockquote>';
 
     loadInstagramScript();
   }
 
   function loadInstagramScript() {
-
-    const oldScript =
-      document.querySelector(
-        'script[src="https://www.instagram.com/embed.js"]'
-      );
-
-    if (oldScript) oldScript.remove();
-
     const script = document.createElement('script');
-
     script.async = true;
-    script.src =
-      'https://www.instagram.com/embed.js';
-
+    script.src = 'https://www.instagram.com/embed.js';
     document.body.appendChild(script);
   }
 
   function renderYouTube(videoId) {
-
-    const box =
-      document.getElementById('youtubeEmbed');
+    const box = document.getElementById('youtubeEmbed');
+    if (!box) return;
 
     if (!videoId) {
-
-      box.innerHTML =
-        '<div class="fallback">YouTube não configurado.</div>';
-
+      box.innerHTML = '<div class="fallback">YouTube não configurado.</div>';
       return;
     }
 
-    box.innerHTML = `
-      <iframe
-        src="https://www.youtube.com/embed/${videoId}"
-        title="YouTube Shorts Big Jesi"
-        allow="
-          accelerometer;
-          autoplay;
-          clipboard-write;
-          encrypted-media;
-          gyroscope;
-          picture-in-picture;
-          web-share
-        "
-        allowfullscreen>
-      </iframe>
-    `;
+    box.innerHTML = '<iframe src="https://www.youtube.com/embed/' + videoId + '" title="YouTube Shorts Big Jesi" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
   }
 
   loadLatestContent();
