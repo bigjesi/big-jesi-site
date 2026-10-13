@@ -160,7 +160,7 @@ export default async function handler(req, res) {
         return { title: e.title, location: e.location, date: `${d}/${m}`, time: e.time, sortDate: e.iso };
       });
 
-    res.setHeader("Cache-Control", "s-maxage=600, stale-while-revalidate=3600");
+    res.setHeader("Cache-Control", "s-maxage=60, stale-while-revalidate=60");
     res.status(200).json({ events });
   } catch (error) {
     res.status(500).json({ error: "Erro ao carregar agenda", details: error.message });
