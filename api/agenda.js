@@ -51,6 +51,56 @@ function field(block, name) {
   return block.match(re)?.[1] || "";
 }
 
+// Soma dias a uma data AAAA-MM-DD
+function addDays(iso, n) {
+  const d = new Date(iso + "T12:00:00Z");
+  d.setUTCDate(d.getUTCDate() + n);
+  return d.toISOString().slice(0, 10);
+}
+
+function addMonths(iso, n) {
+  const d = new Date(iso + "T12:00:00Z");
+  d.setUTCMonth(d.getUTCMonth() + n);
+  return d.toISOString().slice(0, 10);
+}
+
+const WEEKDAYS = { SU: 0, MO: 1, TU: 2, WE: 3, TH: 4, FR: 5, SA: 6 };
+
+// Gera as próximas ocorrências de um evento recorrente (RRULE) a partir de hoje
+function expandRule(startIso, rule, exdates, today, limit) {
+  const r = Object.fromEntries(rule.split(";").map((kv) => kv.split("=")));
+  const freq = r.FREQ;
+  const interval = parseInt(r.INTERVAL || "1", 10);
+  const count = r.COUNT ? parseInt(r.COUNT, 10) : Infinity;
+  const until = r.UNTIL ? `${r.UNTIL.slice(0, 4)}-${r.UNTIL.slice(4, 6)}-${r.UNTIL.slice(6, 8)}` : "9999-12-31";
+  const byday = r.BYDAY ? r.BYDAY.split(",").map((x) => WEEKDAYS[x.slice(-2)]).filter((x) => x !== undefined) : null;
+  const out = [];
+  let n = 0;
+  let guard = 0;
+  let cursor = startIso;
+  while (n < count && cursor <= until && out.length < limit && guard < 2000) {
+    guard++;
+    let candidates = [cursor];
+    if (freq === "WEEKLY" && byday) {
+      const base = new Date(cursor + "T12:00:00Z");
+      const sunday = addDays(cursor, -base.getUTCDay());
+      candidates = byday.map((wd) => addDays(sunday, wd)).filter((d) => d >= startIso).sort();
+    }
+    for (const c of candidates) {
+      if (n >= count || c > until) break;
+      n++;
+      if (c >= today && !exdates.has(c)) out.push(c);
+      if (out.length >= limit) break;
+    }
+    if (freq === "DAILY") cursor = addDays(cursor, interval);
+    else if (freq === "WEEKLY") cursor = addDays(cursor, 7 * interval);
+    else if (freq === "MONTHLY") cursor = addMonths(cursor, interval);
+    else if (freq === "YEARLY") cursor = addMonths(cursor, 12 * interval);
+    else break;
+  }
+  return out;
+}
+
 export default async function handler(req, res) {
   try {
     const calendarUrl = process.env.AGENDA_ICS_URL || FALLBACK_ICS_URL;
@@ -60,34 +110,54 @@ export default async function handler(req, res) {
     if (!text.includes("BEGIN:VCALENDAR")) throw new Error("Resposta não é um calendário iCal");
 
     const today = todayISO();
+    const blocks = text.split("BEGIN:VEVENT").slice(1).map((raw) => raw.split("END:VEVENT")[0]);
 
-    const events = text
-      .split("BEGIN:VEVENT")
-      .slice(1)
-      .map((raw) => raw.split("END:VEVENT")[0])
-      .map((block) => {
-        const startLine = block.match(/^DTSTART[^\n]*$/m)?.[0] || "";
-        const start = parseStart(startLine);
-        const status = field(block, "STATUS");
-        return {
-          title: unescape(field(block, "SUMMARY")) || "Sem título",
-          location: unescape(field(block, "LOCATION")),
-          start,
-          cancelled: /CANCELLED/i.test(status)
-        };
-      })
-      .filter((e) => e.start && !e.cancelled && e.start.iso >= today)
-      .sort((a, b) => (a.start.iso + a.start.time).localeCompare(b.start.iso + b.start.time))
+    // Ocorrências alteradas individualmente (RECURRENCE-ID) substituem a original
+    const overridden = new Set();
+    for (const b of blocks) {
+      const rid = b.match(/^RECURRENCE-ID[^\n]*$/m)?.[0];
+      if (rid) {
+        const st = parseStart(rid.replace(/^RECURRENCE-ID/, "DTSTART"));
+        if (st) overridden.add(field(b, "UID") + "|" + st.iso);
+      }
+    }
+
+    const occurrences = [];
+    for (const block of blocks) {
+      const start = parseStart(block.match(/^DTSTART[^\n]*$/m)?.[0] || "");
+      if (!start) continue;
+      if (/CANCELLED/i.test(field(block, "STATUS"))) continue;
+      // Eventos marcados como "Particular" no Google Agenda não aparecem no site
+      if (/PRIVATE|CONFIDENTIAL/i.test(field(block, "CLASS"))) continue;
+      const base = {
+        title: unescape(field(block, "SUMMARY")) || "Sem título",
+        location: unescape(field(block, "LOCATION")),
+        time: start.time
+      };
+      const uid = field(block, "UID");
+      const rrule = field(block, "RRULE");
+      if (rrule && !/^RECURRENCE-ID/m.test(block)) {
+        const ex = new Set();
+        for (const line of block.match(/^EXDATE[^\n]*$/gm) || []) {
+          for (const v of line.split(":")[1].split(",")) {
+            const st = parseStart("DTSTART:" + v.trim());
+            if (st) ex.add(st.iso);
+          }
+        }
+        for (const iso of expandRule(start.iso, rrule, ex, today, 8)) {
+          if (!overridden.has(uid + "|" + iso)) occurrences.push({ ...base, iso });
+        }
+      } else if (start.iso >= today) {
+        occurrences.push({ ...base, iso: start.iso });
+      }
+    }
+
+    const events = occurrences
+      .sort((a, b) => (a.iso + a.time).localeCompare(b.iso + b.time))
       .slice(0, 4)
       .map((e) => {
-        const [y, m, d] = e.start.iso.split("-");
-        return {
-          title: e.title,
-          location: e.location,
-          date: `${d}/${m}`,
-          time: e.start.time,
-          sortDate: e.start.iso
-        };
+        const [y, m, d] = e.iso.split("-");
+        return { title: e.title, location: e.location, date: `${d}/${m}`, time: e.time, sortDate: e.iso };
       });
 
     res.setHeader("Cache-Control", "s-maxage=600, stale-while-revalidate=3600");
