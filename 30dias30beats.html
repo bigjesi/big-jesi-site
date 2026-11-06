@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>#30dias30beats | Big Jesi</title>
+  <meta name="description" content="Todos os beats do #30dias30beats de Big Jesi, temporada por temporada." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #080808;
+      --card: #171717;
+      --text: #f5f2e8;
+      --muted: #b7b1a4;
+      --yellow: #f2c230;
+      --orange: #e85825;
+      --line: rgba(245, 242, 232, 0.14);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top left, rgba(242, 194, 48, 0.16), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(232, 88, 37, 0.14), transparent 28%),
+        var(--bg);
+      color: var(--text);
+      font-family: 'Archivo', sans-serif;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 34px 34px;
+      z-index: -1;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(14px);
+      background: rgba(8, 8, 8, 0.82);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+    }
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--yellow);
+      color: #080808;
+      display: grid;
+      place-items: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .back {
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .back:hover { color: var(--yellow); }
+
+    .tabs {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 20px 14px;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .tabs::-webkit-scrollbar { display: none; }
+    .tab {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 9px 16px;
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      color: var(--muted);
+      background: rgba(255,255,255,0.04);
+      cursor: pointer;
+      transition: 180ms ease;
+    }
+    .tab:hover { border-color: var(--yellow); color: var(--text); }
+    .tab.active {
+      background: var(--yellow);
+      border-color: var(--yellow);
+      color: #080808;
+      font-weight: 700;
+    }
+    .tab small { opacity: 0.7; margin-left: 6px; }
+
+    header.intro {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 64px 20px 28px;
+    }
+    .kicker {
+      display: inline-flex;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-family: 'Space Mono', monospace;
+      color: var(--yellow);
+      font-size: 12px;
+      margin-bottom: 22px;
+      background: rgba(255,255,255,0.04);
+    }
+    h1 {
+      font-size: clamp(48px, 9vw, 112px);
+      line-height: 0.86;
+      letter-spacing: -0.08em;
+      margin: 0;
+      text-transform: uppercase;
+    }
+    .intro p {
+      max-width: 700px;
+      margin-top: 24px;
+      font-size: clamp(17px, 2vw, 22px);
+      line-height: 1.4;
+      color: var(--muted);
+    }
+    .intro p strong { color: var(--text); }
+
+    main {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 10px 20px 80px;
+    }
+    .season-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      padding-top: 30px;
+      margin-bottom: 24px;
+      border-top: 1px solid var(--line);
+    }
+    h2 {
+      font-size: clamp(32px, 5vw, 60px);
+      line-height: 0.92;
+      letter-spacing: -0.06em;
+      margin: 0;
+      text-transform: uppercase;
+    }
+    .season-note {
+      max-width: 440px;
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      line-height: 1.5;
+      margin: 0;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 16px;
+    }
+    .beat {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+    .beat:hover {
+      transform: translateY(-4px);
+      border-color: rgba(242, 194, 48, 0.45);
+    }
+    .beat-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+    }
+    .beat-num { color: var(--yellow); font-weight: 700; font-size: 20px; }
+    .beat-date { color: var(--muted); }
+    .beat h3 {
+      margin: 0;
+      font-size: 17px;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      flex: 1;
+    }
+    .beat-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 9px 14px;
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      cursor: pointer;
+      transition: 180ms ease;
+    }
+    .btn:hover { border-color: var(--yellow); }
+    .btn.primary {
+      background: var(--yellow);
+      border-color: var(--yellow);
+      color: #080808;
+      font-weight: 700;
+    }
+    .embed-slot:empty { display: none; }
+    .embed-slot { margin: 0 -6px; }
+    .beat.open { grid-column: span 1; }
+
+    footer {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 32px 20px 60px;
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      border-top: 1px solid var(--line);
+    }
+    @media (max-width: 700px) {
+      .season-head { flex-direction: column; align-items: start; }
+      footer { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <nav class="nav">
+      <a class="brand" href="/">
+        <span class="brand-mark">BBS</span>
+        <span>Big Jesi</span>
+      </a>
+      <a class="back" href="/#30dias30beats">voltar ao site</a>
+    </nav>
+    <div class="tabs" id="tabs" role="tablist" aria-label="Temporadas"></div>
+  </div>
+
+  <header class="intro">
+    <span class="kicker">um beat por dia • 30 dias • desde 2019</span>
+    <h1>#30dias<br>30beats</h1>
+    <p>
+      Um desafio que começou na Paraíba em abril de 2019: <strong>criar um beat por dia durante 30 dias e postar</strong>.
+      Virou disco, virou movimento e reuniu beatmakers do Brasil inteiro. Aqui estão todos os meus beats, temporada por temporada.
+    </p>
+  </header>
+
+  <main id="season"></main>
+
+  <footer>
+    <span>© Big Jesi / BBS Lab</span>
+    <a href="https://www.instagram.com/30dias30beats/" target="_blank" rel="noopener">perfil coletivo @30dias30beats</a>
+  </footer>
+
+  <script>
+    const SEASONS = [
+ {
+  "id": "2019",
+  "tab": "2019",
+  "title": "1ª temporada",
+  "desc": "Abril de 2019. Um beat por dia, até um minuto cada, que depois virou o disco Kroutons.",
+  "items": [
+   {
+    "date": "01/04",
+    "label": "Abertura",
+    "url": "https://www.instagram.com/p/BvuXYYkh00a/"
+   },
+   {
+    "date": "02/04",
+    "label": "Beat 2 (Drumsong Dub, Scientist)",
+    "url": "https://www.instagram.com/p/Bvw_iW4Fcs1/"
+   },
+   {
+    "date": "04/04",
+    "label": "Beat 3 (session com Ruptura Coletiva)",
+    "url": "https://www.instagram.com/p/Bv0R2xwhiYs/"
+   },
+   {
+    "date": "05/04",
+    "label": "Beat 4",
+    "url": "https://www.instagram.com/p/Bv3QZxzAUUw/"
+   },
+   {
+    "date": "05/04",
+    "label": "Beat 5 (Bernard Purdie)",
+    "url": "https://www.instagram.com/p/Bv4o9fwAJnC/"
+   },
+   {
+    "date": "07/04",
+    "label": "Beat 6 (Volca Beats)",
+    "url": "https://www.instagram.com/p/Bv8haAUBqda/"
+   },
+   {
+    "date": "08/04",
+    "label": "Beat 7",
+    "url": "https://www.instagram.com/p/Bv-5Cb3ByOR/"
+   },
+   {
+    "date": "09/04",
+    "label": "Beat 8",
+    "url": "https://www.instagram.com/p/BwBHlaoh2jX/"
+   },
+   {
+    "date": "10/04",
+    "label": "Beat 9 (lofi, Yussef Kamaal)",
+    "url": "https://www.instagram.com/p/BwEHyjwBEDA/"
+   },
+   {
+    "date": "10/04",
+    "label": "Beat 10 (Anderson .Paak)",
+    "url": "https://www.instagram.com/p/BwGAYUtB0mN/"
+   },
+   {
+    "date": "12/04",
+    "label": "Beat 11 (Volca Bass + MPC Live)",
+    "url": "https://www.instagram.com/p/BwJbDXOh-y_/"
+   },
+   {
+    "date": "13/04",
+    "label": "Beat 12",
+    "url": "https://www.instagram.com/p/BwL9nRZhtov/"
+   },
+   {
+    "date": "13/04",
+    "label": "Beat 13 (MPC1000)",
+    "url": "https://www.instagram.com/p/BwNvRj_BEuR/"
+   },
+   {
+    "date": "15/04",
+    "label": "Beat 14",
+    "url": "https://www.instagram.com/p/BwQz0QBhMjW/"
+   },
+   {
+    "date": "16/04",
+    "label": "Beat 15 (Korg Electribe)",
+    "url": "https://www.instagram.com/p/BwS51juhhV9/"
+   },
+   {
+    "date": "17/04",
+    "label": "Beat 16 (vaporwave)",
+    "url": "https://www.instagram.com/p/BwWKtlzhfEb/"
+   },
+   {
+    "date": "18/04",
+    "label": "Beat 17",
+    "url": "https://www.instagram.com/p/BwYFaq2hkho/"
+   },
+   {
+    "date": "19/04",
+    "label": "Beat 18",
+    "url": "https://www.instagram.com/p/Bwa_noNBUk3/"
+   },
+   {
+    "date": "20/04",
+    "label": "Beat 19",
+    "url": "https://www.instagram.com/p/BwdQwPrhohy/"
+   },
+   {
+    "date": "20/04",
+    "label": "Beat 20",
+    "url": "https://www.instagram.com/p/Bwd9mSOhouD/"
+   },
+   {
+    "date": "22/04",
+    "label": "Beat 21 (batalhas de rima)",
+    "url": "https://www.instagram.com/p/BwixhyMBNHH/"
+   },
+   {
+    "date": "23/04",
+    "label": "Beat 22 (Lyn Collins)",
+    "url": "https://www.instagram.com/p/BwloDAvhWUu/"
+   },
+   {
+    "date": "24/04",
+    "label": "Beat 23 (lofi, Monja Coen)",
+    "url": "https://www.instagram.com/p/Bwn9xyRBcr8/"
+   },
+   {
+    "date": "25/04",
+    "label": "Beat 24",
+    "url": "https://www.instagram.com/p/BwqnuiqBV1D/"
+   },
+   {
+    "date": "26/04",
+    "label": "Beat 25",
+    "url": "https://www.instagram.com/p/BwtJHXGhikZ/"
+   },
+   {
+    "date": "27/04",
+    "label": "Beat 26 (soul)",
+    "url": "https://www.instagram.com/p/Bwv85cgB_4j/"
+   },
+   {
+    "date": "29/04",
+    "label": "Beat 27 (vocoder, Eddie Kendricks)",
+    "url": "https://www.instagram.com/p/Bw1F8ZfBglt/"
+   },
+   {
+    "date": "29/04",
+    "label": "Beat 28",
+    "url": "https://www.instagram.com/p/Bw1GriFBF9J/"
+   },
+   {
+    "date": "30/04",
+    "label": "Beat 29 (SnakeBass)",
+    "url": "https://www.instagram.com/p/Bw3j2Y3BeDf/"
+   },
+   {
+    "date": "01/05",
+    "label": "Beat 30 e fechamento",
+    "url": "https://www.instagram.com/p/Bw6RCXuBRUz/"
+   }
+  ]
+ },
+ {
+  "id": "2020",
+  "tab": "2020",
+  "title": "2ª temporada",
+  "desc": "Abril de 2020, em plena quarentena, com lives e convidados.",
+  "items": [
+   {
+    "date": "02/04",
+    "label": "Beat 1",
+    "url": "https://www.instagram.com/p/B-d_m8NJg7l/"
+   },
+   {
+    "date": "05/04",
+    "label": "Beat 4, Bixarte",
+    "url": "https://www.instagram.com/p/B-lpva2JBCX/"
+   },
+   {
+    "date": "05/04",
+    "label": "Beat 5, Reflexo",
+    "url": "https://www.instagram.com/p/B-nc3K8J66d/"
+   },
+   {
+    "date": "07/04",
+    "label": "Beat 6, J.A.C.K.Y",
+    "url": "https://www.instagram.com/p/B-qgC30pqWf/"
+   },
+   {
+    "date": "08/04",
+    "label": "Beat 7, BYMO",
+    "url": "https://www.instagram.com/p/B-tMJ1Jp-ft/"
+   },
+   {
+    "date": "09/04",
+    "label": "Harpíndia",
+    "url": "https://www.instagram.com/p/B-vyx2YJLfw/"
+   },
+   {
+    "date": "10/04",
+    "label": "Beat do dia",
+    "url": "https://www.instagram.com/p/B-ypd4jpPpV/"
+   },
+   {
+    "date": "11/04",
+    "label": "(capa de Filosofino)",
+    "url": "https://www.instagram.com/p/B-1DgX_p15s/"
+   },
+   {
+    "date": "12/04",
+    "label": "(bass glide)",
+    "url": "https://www.instagram.com/p/B-3xLLSpWhj/"
+   },
+   {
+    "date": "13/04",
+    "label": "(funk italiano)",
+    "url": "https://www.instagram.com/p/B-6Ly91JL24/"
+   },
+   {
+    "date": "14/04",
+    "label": "Beat do dia",
+    "url": "https://www.instagram.com/p/B-80X1pJVrs/"
+   },
+   {
+    "date": "15/04",
+    "label": "(#30dias30poesias, letra com Rieg)",
+    "url": "https://www.instagram.com/p/B-_eFJdpjO5/"
+   },
+   {
+    "date": "16/04",
+    "label": "Beat do dia",
+    "url": "https://www.instagram.com/p/B_B5NwrpKi1/"
+   },
+   {
+    "date": "17/04",
+    "label": "Beat do dia",
+    "url": "https://www.instagram.com/p/B_EkcuvpNPR/"
+   },
+   {
+    "date": "18/04",
+    "label": "Beat do dia",
+    "url": "https://www.instagram.com/p/B_HS9bZpdmj/"
+   },
+   {
+    "date": "19/04",
+    "label": "(pack Cássio MT40)",
+    "url": "https://www.instagram.com/p/B_JnJgypLN7/"
+   },
+   {
+    "date": "20/04",
+    "label": "Beat do dia",
+    "url": "https://www.instagram.com/p/B_L4noipcLG/"
+   },
+   {
+    "date": "21/04",
+    "label": "Beat do dia",
+    "url": "https://www.instagram.com/p/B_O0A8lJP9g/"
+   },
+   {
+    "date": "22/04",
+    "label": "Beat do dia",
+    "url": "https://www.instagram.com/p/B_RabkFJxfb/"
+   },
+   {
+    "date": "23/04",
+    "label": "(funk 150 e berimbaus)",
+    "url": "https://www.instagram.com/p/B_T-C2CpFLr/"
+   },
+   {
+    "date": "24/04",
+    "label": "Beat do dia",
+    "url": "https://www.instagram.com/p/B_Wqy5zpdWo/"
+   },
+   {
+    "date": "25/04",
+    "label": "(lofi)",
+    "url": "https://www.instagram.com/p/B_ZMf-bpuP0/"
+   },
+   {
+    "date": "28/04",
+    "label": "Beat do dia",
+    "url": "https://www.instagram.com/p/B_hL2_LpgQu/"
+   },
+   {
+    "date": "29/04",
+    "label": "(timbres do nordeste)",
+    "url": "https://www.instagram.com/p/B_jizxpJhTS/"
+   },
+   {
+    "date": "30/04",
+    "label": "(colab com Jambo Jones, sax)",
+    "url": "https://www.instagram.com/p/B_lyv8yp896/"
+   },
+   {
+    "date": "01/05",
+    "label": "Fechamento",
+    "url": "https://www.instagram.com/p/B_o5eJdJx3V/"
+   }
+  ]
+ },
+ {
+  "id": "2021",
+  "tab": "2021",
+  "title": "3ª temporada",
+  "desc": "Abril de 2021, com mais voz, letras e misturas.",
+  "items": [
+   {
+    "date": "31/03",
+    "label": "Chamada da temporada",
+    "url": "https://www.instagram.com/p/CNEYojZppL8/"
+   },
+   {
+    "date": "02/04",
+    "label": "Dia 1",
+    "url": "https://www.instagram.com/p/CNJdN0SpXjK/"
+   },
+   {
+    "date": "03/04",
+    "label": "Dia 2",
+    "url": "https://www.instagram.com/p/CNMFr21p2uH/"
+   },
+   {
+    "date": "04/04",
+    "label": "Dia 3 (Toinho Melodia)",
+    "url": "https://www.instagram.com/p/CNOzWhTpWmo/"
+   },
+   {
+    "date": "05/04",
+    "label": "(Sinfonia Amazônica)",
+    "url": "https://www.instagram.com/p/CNRjT4gJ2Mm/"
+   },
+   {
+    "date": "06/04",
+    "label": "Beat do dia",
+    "url": "https://www.instagram.com/p/CNUGiolJmi3/"
+   },
+   {
+    "date": "07/04",
+    "label": "Beat do dia",
+    "url": "https://www.instagram.com/p/CNWyKRpJaGP/"
+   },
+   {
+    "date": "08/04",
+    "label": "Beat do dia",
+    "url": "https://www.instagram.com/p/CNYzuj9ptVF/"
+   },
+   {
+    "date": "10/04",
+    "label": "Lá em casa",
+    "url": "https://www.instagram.com/p/CNerhr_pNxC/"
+   },
+   {
+    "date": "11/04",
+    "label": "Beat do dia",
+    "url": "https://www.instagram.com/p/CNhIgQkpT_K/"
+   },
+   {
+    "date": "12/04",
+    "label": "Bit 11 (passinho sobre Tony Allen)",
+    "url": "https://www.instagram.com/p/CNjuH-rJWJ_/"
+   },
+   {
+    "date": "13/04",
+    "label": "Beat do dia",
+    "url": "https://www.instagram.com/p/CNlf6SuJPmz/"
+   },
+   {
+    "date": "14/04",
+    "label": "Beat do dia",
+    "url": "https://www.instagram.com/p/CNo8rcUp7g0/"
+   },
+   {
+    "date": "15/04",
+    "label": "Beat do dia",
+    "url": "https://www.instagram.com/p/CNrlHjwJzw5/"
+   },
+   {
+    "date": "16/04",
+    "label": "Metade",
+    "url": "https://www.instagram.com/p/CNuIRiTJDlG/"
+   },
+   {
+    "date": "17/04",
+    "label": "Livrai",
+    "url": "https://www.instagram.com/p/CNwVeTippZ0/"
+   },
+   {
+    "date": "18/04",
+    "label": "(arte de Filosofino)",
+    "url": "https://www.instagram.com/p/CNzJRGsJylM/"
+   },
+   {
+    "date": "19/04",
+    "label": "Carta Coringa",
+    "url": "https://www.instagram.com/p/CN16TE5pGog/"
+   },
+   {
+    "date": "20/04",
+    "label": "Beat do dia",
+    "url": "https://www.instagram.com/p/CN4VsYapMtQ/"
+   },
+   {
+    "date": "22/04",
+    "label": "(praia do Seixas)",
+    "url": "https://www.instagram.com/p/CN9cq-gplod/"
+   },
+   {
+    "date": "23/04",
+    "label": "Beat do dia",
+    "url": "https://www.instagram.com/p/COAFyfGJI1p/"
+   },
+   {
+    "date": "24/04",
+    "label": "Beat do dia",
+    "url": "https://www.instagram.com/p/CODfIBDJwqv/"
+   },
+   {
+    "date": "25/04",
+    "label": "(som para Miu Miu)",
+    "url": "https://www.instagram.com/p/COFTbl5ppBA/"
+   },
+   {
+    "date": "26/04",
+    "label": "(locução do MotoGP)",
+    "url": "https://www.instagram.com/p/COHM8JxpeVP/"
+   },
+   {
+    "date": "27/04",
+    "label": "Beat do dia",
+    "url": "https://www.instagram.com/p/COKb_OaJ-4i/"
+   },
+   {
+    "date": "28/04",
+    "label": "Beat do dia",
+    "url": "https://www.instagram.com/p/COM9veypUUd/"
+   },
+   {
+    "date": "29/04",
+    "label": "Beat do dia",
+    "url": "https://www.instagram.com/p/COPf-n8ppf-/"
+   },
+   {
+    "date": "30/04",
+    "label": "Penúltimo beat",
+    "url": "https://www.instagram.com/p/COSGJqUJKto/"
+   }
+  ]
+ },
+ {
+  "id": "2022",
+  "tab": "2022",
+  "title": "4ª temporada",
+  "desc": "Abril de 2022, entre a estrada e o estúdio.",
+  "items": [
+   {
+    "date": "02/04",
+    "label": "Beat 1, BB",
+    "url": "https://www.instagram.com/p/Cb13X3qsEC1/"
+   },
+   {
+    "date": "06/04",
+    "label": "Beat 2 (feat. Rieg)",
+    "url": "https://www.instagram.com/p/CcAB6YtrIhT/"
+   },
+   {
+    "date": "07/04",
+    "label": "Beat 3, Groove boy",
+    "url": "https://www.instagram.com/p/CcCseunuxEl/"
+   },
+   {
+    "date": "08/04",
+    "label": "Beat 3 (foto de Fotopassos)",
+    "url": "https://www.instagram.com/p/CcGBT4iFAz0/"
+   }
+  ]
+ },
+ {
+  "id": "depois",
+  "tab": "2023+",
+  "title": "2023 em diante",
+  "desc": "Beats soltos das edições seguintes e a história do movimento.",
+  "items": [
+   {
+    "date": "05/04/2023",
+    "label": "Beat 1, Corttex",
+    "url": "https://www.instagram.com/p/CqpAzhorblw/"
+   },
+   {
+    "date": "05/04/2024",
+    "label": "Beat 1 (sobre IA na música)",
+    "url": "https://www.instagram.com/p/C5XiWbEgs33/"
+   },
+   {
+    "date": "13/04/2024",
+    "label": "Beat 2",
+    "url": "https://www.instagram.com/p/C5sTI3hgzzy/"
+   },
+   {
+    "date": "17/04/2024",
+    "label": "Beat 3",
+    "url": "https://www.instagram.com/p/C52fmq2gws6/"
+   },
+   {
+    "date": "02/04/2026",
+    "label": "Vídeo sobre a história do movimento",
+    "url": "https://www.instagram.com/p/DWnaOV9DanN/"
+   }
+  ]
+ },
+ {
+  "id": "kroutons",
+  "tab": "Kroutons",
+  "title": "Kroutons",
+  "desc": "Do desafio ao disco: bastidores, SIM São Paulo e lançamento.",
+  "items": [
+   {
+    "date": "06/12/2019",
+    "label": "Vídeo do Rieg sobre o projeto",
+    "url": "https://www.instagram.com/p/B5vsxg0JqMD/"
+   },
+   {
+    "date": "06/12/2019",
+    "label": "Fala na SIM São Paulo (Lab Sônica)",
+    "url": "https://www.instagram.com/p/B5vsZ2gJa2N/"
+   },
+   {
+    "date": "23/12/2019",
+    "label": "Anúncio do disco",
+    "url": "https://www.instagram.com/p/B6bJYcmJ4mS/"
+   },
+   {
+    "date": "20/04/2020",
+    "label": "Material especial da Propósito Recs sobre Kroutons",
+    "url": "https://www.instagram.com/p/B_Nu6QHJK39/"
+   },
+   {
+    "date": "25/08/2021",
+    "label": "Pre save de Kroutons",
+    "url": "https://www.instagram.com/p/CTA7W-Cnsu1/"
+   },
+   {
+    "date": "28/08/2021",
+    "label": "Kroutons no Spotify",
+    "url": "https://www.instagram.com/p/CTITHlpH_Go/"
+   },
+   {
+    "date": "02/09/2021",
+    "label": "Véspera do lançamento",
+    "url": "https://www.instagram.com/p/CTVE99qH3mU/"
+   }
+  ]
+ }
+];
+
+    const tabsEl = document.getElementById('tabs');
+    const seasonEl = document.getElementById('season');
+
+    function beatNumber(season, item, i) {
+      const m = item.label.match(/(?:Beat|Bit|Dia)\s*(\d+)/i);
+      if (m) return m[1].padStart(2, '0');
+      return '•';
+    }
+
+    function escapeHtml(s) {
+      return s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    }
+
+    function renderTabs(activeId) {
+      tabsEl.innerHTML = SEASONS.map(s => `
+        <button class="tab ${s.id === activeId ? 'active' : ''}" role="tab"
+          aria-selected="${s.id === activeId}" data-id="${s.id}">
+          ${s.tab}<small>${s.items.length}</small>
+        </button>
+      `).join('');
+      const active = tabsEl.querySelector('.tab.active');
+      if (active) active.scrollIntoView({ block: 'nearest', inline: 'center' });
+    }
+
+    function renderSeason(id) {
+      const season = SEASONS.find(s => s.id === id) || SEASONS[0];
+      renderTabs(season.id);
+      seasonEl.innerHTML = `
+        <div class="season-head">
+          <h2>${season.title}</h2>
+          <p class="season-note">${season.desc}</p>
+        </div>
+        <div class="grid">
+          ${season.items.map((item, i) => `
+            <article class="beat">
+              <div class="beat-top">
+                <span class="beat-num">${season.id === 'kroutons' ? '♪' : beatNumber(season, item, i)}</span>
+                <span class="beat-date">${item.date}</span>
+              </div>
+              <h3>${escapeHtml(item.label)}</h3>
+              <div class="embed-slot"></div>
+              <div class="beat-actions">
+                <button class="btn primary" data-embed="${item.url}">ver aqui</button>
+                <a class="btn" href="${item.url}" target="_blank" rel="noopener">abrir no Instagram</a>
+              </div>
+            </article>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    function loadInstagramScript() {
+      if (window.instgrm) { window.instgrm.Embeds.process(); return; }
+      if (document.querySelector('script[src="https://www.instagram.com/embed.js"]')) return;
+      const s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.instagram.com/embed.js';
+      document.body.appendChild(s);
+    }
+
+    tabsEl.addEventListener('click', e => {
+      const tab = e.target.closest('.tab');
+      if (!tab) return;
+      history.replaceState(null, '', '#' + tab.dataset.id);
+      renderSeason(tab.dataset.id);
+    });
+
+    seasonEl.addEventListener('click', e => {
+      const btn = e.target.closest('[data-embed]');
+      if (!btn) return;
+      const card = btn.closest('.beat');
+      const slot = card.querySelector('.embed-slot');
+      if (slot.innerHTML) {
+        slot.innerHTML = '';
+        btn.textContent = 'ver aqui';
+        return;
+      }
+      slot.innerHTML = `
+        <blockquote class="instagram-media" data-instgrm-permalink="${btn.dataset.embed}"
+          data-instgrm-version="14"
+          style="background:#fff;border:0;margin:0 auto;max-width:540px;min-width:220px;width:100%;">
+        </blockquote>`;
+      btn.textContent = 'fechar';
+      loadInstagramScript();
+    });
+
+    renderSeason(location.hash.slice(1) || '2019');
+  </script>
+</body>
+</html>
