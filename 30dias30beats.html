@@ -181,61 +181,118 @@
     }
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 6px;
     }
-    .beat {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--line);
-      border-radius: 22px;
-      padding: 18px;
+    .thumb {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      border: 0;
+      padding: 0;
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--card);
+      cursor: pointer;
+      display: block;
+      width: 100%;
+    }
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.35s ease, filter 0.35s ease;
+      filter: saturate(0.95);
+    }
+    .thumb:hover img { transform: scale(1.05); filter: saturate(1.1) brightness(0.8); }
+    .thumb .info {
+      position: absolute;
+      inset: auto 0 0 0;
+      padding: 28px 10px 10px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.85));
+      color: var(--text);
+      text-align: left;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      line-height: 1.35;
+    }
+    .thumb .info b { color: var(--yellow); display: block; font-size: 13px; }
+    .thumb .play {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: rgba(8,8,8,0.6);
+      display: grid;
+      place-items: center;
+      color: var(--yellow);
+      font-size: 12px;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      background: rgba(5,5,5,0.92);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal.open { display: flex; }
+    .modal-box {
+      width: min(460px, 100%);
+      max-height: 100%;
       display: flex;
       flex-direction: column;
-      gap: 14px;
-      transition: transform 0.3s ease, border-color 0.3s ease;
+      gap: 12px;
     }
-    .beat:hover {
-      transform: translateY(-4px);
-      border-color: rgba(242, 194, 48, 0.45);
+    .modal-media {
+      width: 100%;
+      max-height: 76vh;
+      border-radius: 16px;
+      background: #000;
+      object-fit: contain;
+      display: block;
     }
-    .beat-top {
+    .modal-meta {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 12px;
       font-family: 'Space Mono', monospace;
-      font-size: 12px;
+      font-size: 13px;
+      color: var(--muted);
     }
-    .beat-num { color: var(--yellow); font-weight: 700; font-size: 20px; }
-    .beat-date { color: var(--muted); }
-    .beat h3 {
-      margin: 0;
-      font-size: 17px;
-      line-height: 1.25;
-      letter-spacing: -0.02em;
-      flex: 1;
-    }
-    .beat-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-    .btn {
+    .modal-meta b { color: var(--text); font-family: 'Archivo', sans-serif; font-size: 16px; }
+    .modal-btn {
+      position: fixed;
       border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 9px 14px;
-      font-family: 'Space Mono', monospace;
-      font-size: 12px;
-      background: rgba(255,255,255,0.04);
+      background: rgba(255,255,255,0.06);
       color: var(--text);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      font-size: 20px;
       cursor: pointer;
-      transition: 180ms ease;
+      display: grid;
+      place-items: center;
     }
-    .btn:hover { border-color: var(--yellow); }
-    .btn.primary {
-      background: var(--yellow);
-      border-color: var(--yellow);
-      color: #080808;
-      font-weight: 700;
+    .modal-btn:hover { border-color: var(--yellow); color: var(--yellow); }
+    .modal-close { top: 18px; right: 18px; }
+    .modal-prev { left: 18px; top: 50%; transform: translateY(-50%); }
+    .modal-next { right: 18px; top: 50%; transform: translateY(-50%); }
+    @media (max-width: 700px) {
+      .grid { grid-template-columns: repeat(3, 1fr); gap: 3px; }
+      .thumb { border-radius: 4px; }
+      .thumb .info { font-size: 9px; padding: 18px 6px 6px; }
+      .thumb .info span { display: none; }
+      .thumb .info b { font-size: 11px; }
+      .modal-prev, .modal-next { top: auto; bottom: 18px; transform: none; }
     }
-    .embed-slot:empty { display: none; }
-    .embed-slot { margin: 0 -6px; }
-    .beat.open { grid-column: span 1; }
 
     footer {
       max-width: 1180px;
@@ -272,11 +329,21 @@
     <h1>#30dias<br>30beats</h1>
     <p>
       Um desafio que começou na Paraíba em abril de 2019: <strong>criar um beat por dia durante 30 dias e postar</strong>.
-      Virou disco, virou movimento e reuniu beatmakers do Brasil inteiro. Aqui estão todos os meus beats, temporada por temporada.
+      Virou disco, virou movimento e reuniu beatmakers do Brasil inteiro. Aqui estão todos os meus beats, temporada por temporada. Clica em qualquer um pra assistir.
     </p>
   </header>
 
   <main id="season"></main>
+
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Beat">
+    <button class="modal-btn modal-close" id="mClose" aria-label="Fechar">✕</button>
+    <button class="modal-btn modal-prev" id="mPrev" aria-label="Anterior">‹</button>
+    <button class="modal-btn modal-next" id="mNext" aria-label="Próximo">›</button>
+    <div class="modal-box">
+      <div id="mMedia"></div>
+      <div class="modal-meta"><b id="mTitle"></b><span id="mDate"></span></div>
+    </div>
+  </div>
 
   <footer>
     <span>© Big Jesi / BBS Lab</span>
@@ -859,8 +926,14 @@
       if (active) active.scrollIntoView({ block: 'nearest', inline: 'center' });
     }
 
+    const BLOB = 'https://q1vb6sxd7rzzqi3f.public.blob.vercel-storage.com/30dias30beats/';
+    const NO_VIDEO = new Set(["DVaNr8UDZeJ","C5XiWbEgs33","C2AwvJKJvHB","CarsUGYLQrX","CUk5_W8p5R1","COd19-1p6vq","CNEYojZppL8","CM5oQt-JNTD","CIipkppJA3p"]);
+    const codeOf = url => url.split('/p/')[1].replace('/', '');
+    let current = null, index = 0;
+
     function renderSeason(id) {
       const season = SEASONS.find(s => s.id === id) || SEASONS[0];
+      current = season;
       renderTabs(season.id);
       seasonEl.innerHTML = `
         <div class="season-head">
@@ -868,57 +941,63 @@
           <p class="season-note">${season.desc}</p>
         </div>
         <div class="grid">
-          ${season.items.map((item, i) => `
-            <article class="beat">
-              <div class="beat-top">
-                <span class="beat-num">${season.id === 'kroutons' ? '♪' : beatNumber(season, item, i)}</span>
-                <span class="beat-date">${item.date}</span>
-              </div>
-              <h3>${escapeHtml(item.label)}</h3>
-              <div class="embed-slot"></div>
-              <div class="beat-actions">
-                <button class="btn primary" data-embed="${item.url}">ver aqui</button>
-                <a class="btn" href="${item.url}" target="_blank" rel="noopener">abrir no Instagram</a>
-              </div>
-            </article>
-          `).join('')}
+          ${season.items.map((item, i) => {
+            const code = codeOf(item.url);
+            const num = season.id === 'kroutons' ? '♪' : beatNumber(season, item, i);
+            return `
+            <button class="thumb" data-i="${i}" aria-label="${escapeHtml(item.label)}">
+              <img src="${BLOB}${code}.jpg" alt="" loading="lazy">
+              ${NO_VIDEO.has(code) ? '' : '<span class="play">▶</span>'}
+              <span class="info"><b>${num === '•' ? item.date : num}</b><span>${escapeHtml(item.label)}</span></span>
+            </button>`;
+          }).join('')}
         </div>
       `;
     }
 
-    function loadInstagramScript() {
-      if (window.instgrm) { window.instgrm.Embeds.process(); return; }
-      if (document.querySelector('script[src="https://www.instagram.com/embed.js"]')) return;
-      const s = document.createElement('script');
-      s.async = true;
-      s.src = 'https://www.instagram.com/embed.js';
-      document.body.appendChild(s);
+    const modal = document.getElementById('modal');
+    const mMedia = document.getElementById('mMedia');
+
+    function openItem(i) {
+      const items = current.items;
+      index = (i + items.length) % items.length;
+      const item = items[index];
+      const code = codeOf(item.url);
+      mMedia.innerHTML = NO_VIDEO.has(code)
+        ? `<img class="modal-media" src="${BLOB}${code}.jpg" alt="">`
+        : `<video class="modal-media" src="${BLOB}${code}.mp4" poster="${BLOB}${code}.jpg" controls autoplay playsinline></video>`;
+      document.getElementById('mTitle').textContent = item.label;
+      document.getElementById('mDate').textContent = item.date;
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
     }
+
+    function closeModal() {
+      modal.classList.remove('open');
+      mMedia.innerHTML = '';
+      document.body.style.overflow = '';
+    }
+
+    seasonEl.addEventListener('click', e => {
+      const t = e.target.closest('.thumb');
+      if (t) openItem(Number(t.dataset.i));
+    });
+    document.getElementById('mClose').onclick = closeModal;
+    document.getElementById('mPrev').onclick = () => openItem(index - 1);
+    document.getElementById('mNext').onclick = () => openItem(index + 1);
+    modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', e => {
+      if (!modal.classList.contains('open')) return;
+      if (e.key === 'Escape') closeModal();
+      if (e.key === 'ArrowLeft') openItem(index - 1);
+      if (e.key === 'ArrowRight') openItem(index + 1);
+    });
 
     tabsEl.addEventListener('click', e => {
       const tab = e.target.closest('.tab');
       if (!tab) return;
       history.replaceState(null, '', '#' + tab.dataset.id);
       renderSeason(tab.dataset.id);
-    });
-
-    seasonEl.addEventListener('click', e => {
-      const btn = e.target.closest('[data-embed]');
-      if (!btn) return;
-      const card = btn.closest('.beat');
-      const slot = card.querySelector('.embed-slot');
-      if (slot.innerHTML) {
-        slot.innerHTML = '';
-        btn.textContent = 'ver aqui';
-        return;
-      }
-      slot.innerHTML = `
-        <blockquote class="instagram-media" data-instgrm-permalink="${btn.dataset.embed}"
-          data-instgrm-version="14"
-          style="background:#fff;border:0;margin:0 auto;max-width:540px;min-width:220px;width:100%;">
-        </blockquote>`;
-      btn.textContent = 'fechar';
-      loadInstagramScript();
     });
 
     renderSeason(location.hash.slice(1) || '2019');
