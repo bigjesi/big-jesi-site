@@ -1,0 +1,12 @@
+{
+  "headers": [
+    {
+      "source": "/big_jesi_bbs_lab_site_prototipo(.*)",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
+    },
+    {
+      "source": "/(privacy|terms)(.html)?",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }]
+    }
+  ]
+}
