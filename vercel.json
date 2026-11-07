@@ -1,4 +1,12 @@
 {
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "big-jesi-site.vercel.app" }],
+      "destination": "https://bigjesi.com.br/:path*",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/big_jesi_bbs_lab_site_prototipo(.*)",
