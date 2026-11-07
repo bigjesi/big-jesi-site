@@ -22,9 +22,9 @@ async function compress(buf, code) {
   fs.writeFileSync(src, buf);
   await run([
     "-y", "-i", src,
-    "-vf", "scale='if(gt(iw,ih),-2,min(480,iw))':'if(gt(iw,ih),min(480,ih),-2)'",
-    "-c:v", "libx264", "-preset", "ultrafast", "-crf", "30", "-r", "30",
-    "-c:a", "aac", "-b:a", "96k", "-movflags", "+faststart", out,
+    "-vf", "scale='if(gt(iw,ih),-2,min(360,iw))':'if(gt(iw,ih),min(360,ih),-2)'",
+    "-c:v", "libx264", "-preset", "superfast", "-crf", "31", "-maxrate", "450k", "-bufsize", "900k", "-r", "24", "-threads", "0",
+    "-c:a", "aac", "-b:a", "80k", "-movflags", "+faststart", out,
   ]);
   const data = fs.readFileSync(out);
   fs.unlinkSync(src); fs.unlinkSync(out);
@@ -68,7 +68,7 @@ module.exports = async function handler(req, res) {
     if (!ALLOWED.test(new URL(url).hostname)) return res.status(400).json({ error: "host" });
 
     if (kind === "mp4") {
-      try { const h = await head(`${folder}/${code}.mp4`); if (h) return res.status(200).json({ ok: true, skipped: true, original: 0, size: 0 }); } catch (e) {}
+      try { const h = await head(`${folder}/${code}.mp4`); if (h && h.size < 9 * 1024 * 1024) return res.status(200).json({ ok: true, skipped: true, original: 0, size: 0 }); } catch (e) {}
     }
     const r = await fetch(url);
     if (!r.ok) return res.status(502).json({ error: "fetch " + r.status });
