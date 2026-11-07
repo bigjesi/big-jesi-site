@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-Sitemap: https://big-jesi-site.vercel.app/sitemap.xml
+Sitemap: https://bigjesi.com.br/sitemap.xml
