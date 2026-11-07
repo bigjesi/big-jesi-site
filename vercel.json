@@ -1,0 +1,12 @@
+{
+  "functions": {
+    "api/compress-video.js": {
+      "maxDuration": 300,
+      "memory": 2048,
+      "includeFiles": "node_modules/ffmpeg-static/ffmpeg"
+    },
+    "api/import-beat.js": {
+      "maxDuration": 60
+    }
+  }
+}
