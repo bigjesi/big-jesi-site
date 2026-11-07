@@ -1,5 +1,5 @@
 // Rota temporária: copia vídeos e capas do Instagram para o Vercel Blob, comprimindo os vídeos.
-const { put, list, del } = require("@vercel/blob");
+const { put, list, del, head } = require("@vercel/blob");
 const ffmpegPath = require("ffmpeg-static");
 const { execFile } = require("child_process");
 const fs = require("fs");
@@ -22,8 +22,8 @@ async function compress(buf, code) {
   fs.writeFileSync(src, buf);
   await run([
     "-y", "-i", src,
-    "-vf", "scale='if(gt(iw,ih),-2,min(540,iw))':'if(gt(iw,ih),min(540,ih),-2)'",
-    "-c:v", "libx264", "-preset", "veryfast", "-crf", "29",
+    "-vf", "scale='if(gt(iw,ih),-2,min(480,iw))':'if(gt(iw,ih),min(480,ih),-2)'",
+    "-c:v", "libx264", "-preset", "ultrafast", "-crf", "30", "-r", "30",
     "-c:a", "aac", "-b:a", "96k", "-movflags", "+faststart", out,
   ]);
   const data = fs.readFileSync(out);
@@ -67,6 +67,9 @@ module.exports = async function handler(req, res) {
     if (!["mp4", "jpg"].includes(kind)) return res.status(400).json({ error: "kind" });
     if (!ALLOWED.test(new URL(url).hostname)) return res.status(400).json({ error: "host" });
 
+    if (kind === "mp4") {
+      try { const h = await head(`${folder}/${code}.mp4`); if (h) return res.status(200).json({ ok: true, skipped: true, original: 0, size: 0 }); } catch (e) {}
+    }
     const r = await fetch(url);
     if (!r.ok) return res.status(502).json({ error: "fetch " + r.status });
     let data = Buffer.from(await r.arrayBuffer());
