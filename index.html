@@ -375,6 +375,64 @@
       gap: 18px;
     }
 
+    .beats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .beats-season {
+      display: inline-flex;
+      margin-bottom: 12px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(242, 194, 48, 0.12);
+      color: var(--yellow);
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+    }
+
+    .beat-video {
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      max-height: 560px;
+      border-radius: 18px;
+      background: #000;
+      object-fit: contain;
+      display: block;
+    }
+
+    .beats-cta {
+      margin-top: 26px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .beats-years {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .beats-years a {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      color: var(--muted);
+      transition: 180ms ease;
+    }
+
+    .beats-years a:hover { border-color: var(--yellow); color: var(--yellow); }
+
+    @media (max-width: 1050px) {
+      .beats-grid { grid-template-columns: 1fr 1fr; }
+    }
+
     .photo-grid, .press-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -613,7 +671,7 @@
       .hero, .about, .contact-box { grid-template-columns: 1fr; }
       .hero { padding-top: 54px; }
       .hero-card { min-height: 320px; }
-      .content-grid, .press-grid, .work-grid, .photo-grid, .spotify-grid { grid-template-columns: 1fr; }
+      .content-grid, .press-grid, .work-grid, .photo-grid, .spotify-grid, .beats-grid { grid-template-columns: 1fr; }
       .section-title { align-items: start; flex-direction: column; }
       .about-panel { position: static; }
       footer { flex-direction: column; }
@@ -631,6 +689,8 @@
       <div class="nav-links">
         <a href="#conteudos">conteúdos</a>
         <a href="#spotify">ouça</a>
+        <a href="#30dias30beats">#30dias30beats</a>
+        <a href="#bigbit">bigbit</a>
         <a href="#sobre">sobre</a>
         <a href="#fotos">fotos</a>
         <a href="#trabalhos">trabalhos</a>
@@ -872,6 +932,77 @@
   </iframe>
 </div>
 
+      </div>
+    </section>
+
+    <section id="30dias30beats">
+      <div class="section-title">
+        <h2>#30dias<br>30beats</h2>
+        <p class="section-note">Um beat por dia durante 30 dias. Começou aqui na Paraíba em abril de 2019, virou o disco Kroutons e um movimento de beatmakers do Brasil inteiro.</p>
+      </div>
+
+      <div class="beats-grid">
+        <article class="media-card">
+          <span class="beats-season">1ª temporada • 2019</span>
+          <h3>Beat 1: a abertura</h3>
+          <video class="beat-video" src="https://q1vb6sxd7rzzqi3f.public.blob.vercel-storage.com/30dias30beats/BvuXYYkh00a.mp4" poster="https://q1vb6sxd7rzzqi3f.public.blob.vercel-storage.com/30dias30beats/BvuXYYkh00a.jpg" controls playsinline preload="none"></video>
+        </article>
+        <article class="media-card">
+          <span class="beats-season">2ª temporada • 2020</span>
+          <h3>Beat 1 da segunda temporada</h3>
+          <video class="beat-video" src="https://q1vb6sxd7rzzqi3f.public.blob.vercel-storage.com/30dias30beats/B-d_m8NJg7l.mp4" poster="https://q1vb6sxd7rzzqi3f.public.blob.vercel-storage.com/30dias30beats/B-d_m8NJg7l.jpg" controls playsinline preload="none"></video>
+        </article>
+        <article class="media-card">
+          <span class="beats-season">3ª temporada • 2021</span>
+          <h3>Dia 3: com Toinho Melodia</h3>
+          <video class="beat-video" src="https://q1vb6sxd7rzzqi3f.public.blob.vercel-storage.com/30dias30beats/CNOzWhTpWmo.mp4" poster="https://q1vb6sxd7rzzqi3f.public.blob.vercel-storage.com/30dias30beats/CNOzWhTpWmo.jpg" controls playsinline preload="none"></video>
+        </article>
+      </div>
+
+      <div class="beats-cta">
+        <a class="btn primary" href="/30dias30beats.html">ver todos os beats</a>
+        <div class="beats-years">
+          <a href="/30dias30beats.html#2019">2019</a>
+          <a href="/30dias30beats.html#2020">2020</a>
+          <a href="/30dias30beats.html#2021">2021</a>
+          <a href="/30dias30beats.html#2022">2022</a>
+          <a href="/30dias30beats.html#depois">2023+</a>
+          <a href="/30dias30beats.html#kroutons">Kroutons</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="bigbit">
+      <div class="section-title">
+        <h2>Big<br>Bit</h2>
+        <p class="section-note">Série em vídeo feita de pequenos recortes: a estrada, o palco e a cidade remixados em tempo real, sem roteiro e sem ensaio.</p>
+      </div>
+
+      <div class="beats-grid">
+        <article class="media-card">
+          <span class="beats-season">Na estrada • 2026</span>
+          <h3>Totonho</h3>
+          <video class="beat-video" src="https://q1vb6sxd7rzzqi3f.public.blob.vercel-storage.com/bigbit/DXv1sM0ttNr.mp4" poster="https://q1vb6sxd7rzzqi3f.public.blob.vercel-storage.com/bigbit/DXv1sM0ttNr.jpg" controls playsinline preload="none"></video>
+        </article>
+        <article class="media-card">
+          <span class="beats-season">Tour Nordeste • 2025</span>
+          <h3>Bixarte em Juazeiro do Norte</h3>
+          <video class="beat-video" src="https://q1vb6sxd7rzzqi3f.public.blob.vercel-storage.com/bigbit/DIkd8ujtk8e.mp4" poster="https://q1vb6sxd7rzzqi3f.public.blob.vercel-storage.com/bigbit/DIkd8ujtk8e.jpg" controls playsinline preload="none"></video>
+        </article>
+        <article class="media-card">
+          <span class="beats-season">Temporada SP • 2025</span>
+          <h3>Fim da temporada no Sesc Pompeia</h3>
+          <video class="beat-video" src="https://q1vb6sxd7rzzqi3f.public.blob.vercel-storage.com/bigbit/DIDFuGzN0Sz.mp4" poster="https://q1vb6sxd7rzzqi3f.public.blob.vercel-storage.com/bigbit/DIDFuGzN0Sz.jpg" controls playsinline preload="none"></video>
+        </article>
+      </div>
+
+      <div class="beats-cta">
+        <a class="btn primary" href="/bigbit.html">ver todos os episódios</a>
+        <div class="beats-years">
+          <a href="/bigbit.html#sp">Temporada SP</a>
+          <a href="/bigbit.html#tour">Tour Nordeste</a>
+          <a href="/bigbit.html#estrada">Estrada</a>
+        </div>
       </div>
     </section>
 
