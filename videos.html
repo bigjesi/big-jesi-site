@@ -1,0 +1,889 @@
+
+
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vídeos: apresentações, TV e sessões | Big Jesi</title>
+  <meta name="description" content="Vídeos de Big Jesi (Daniel Jesi): apresentações com Bixarte no One Take Show e Cultura Livre, BBS Sessions, clipes e Burro Morto." />
+  <meta name="author" content="Big Jesi" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="canonical" href="https://bigjesi.com.br/videos.html" />
+
+  <meta property="og:type" content="profile" />
+  <meta property="og:site_name" content="Big Jesi" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:title" content="Vídeos | Big Jesi" />
+  <meta property="og:description" content="Site oficial de Big Jesi (Daniel Jesi), produtor musical paraibano à frente do BBS Lab e criador do #30dias30beats." />
+  <meta property="og:url" content="https://bigjesi.com.br/videos.html" />
+  <meta property="og:image" content="https://bigjesi.com.br/img/big-jesi-cara.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Big Jesi | Produtor musical e beatmaker" />
+  <meta name="twitter:description" content="Site oficial de Big Jesi (Daniel Jesi), produtor musical paraibano à frente do BBS Lab." />
+  <meta name="twitter:image" content="https://bigjesi.com.br/img/big-jesi-cara.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #080808;
+      --card: #171717;
+      --card-2: #202020;
+      --text: #f5f2e8;
+      --muted: #b7b1a4;
+      --yellow: #f2c230;
+      --orange: #e85825;
+      --line: rgba(245, 242, 232, 0.14);
+    }
+
+    .spotify-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+      align-items: start;
+    }
+
+   .spotify-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: 0;
+  overflow: hidden;
+  width: 100%;
+
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+
+  transform-origin: center;
+}
+    .agenda-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: 18px;
+  overflow: hidden;
+}
+    
+    .spotify-card:hover {
+  transform: translateY(-6px);
+
+  border-color: rgba(242, 194, 48, 0.45);
+
+  box-shadow:
+    0 18px 40px rgba(0,0,0,0.35),
+    0 0 28px rgba(242, 194, 48, 0.12);
+}
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top left, rgba(242, 194, 48, 0.16), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(232, 88, 37, 0.14), transparent 28%),
+        var(--bg);
+      color: var(--text);
+      font-family: 'Archivo', sans-serif;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 34px 34px;
+      z-index: -1;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(14px);
+      background: rgba(8, 8, 8, 0.72);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--yellow);
+      color: #080808;
+      display: grid;
+      place-items: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 16px;
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .nav-links a:hover { color: var(--yellow); }
+
+    .hero {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 84px 20px 52px;
+      min-height: 78vh;
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 42px;
+      align-items: center;
+    }
+
+    .kicker {
+      display: inline-flex;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-family: 'Space Mono', monospace;
+      color: var(--yellow);
+      font-size: 12px;
+      margin-bottom: 22px;
+      background: rgba(255,255,255,0.04);
+    }
+
+    h1 {
+      font-size: clamp(54px, 9vw, 120px);
+      line-height: 0.86;
+      letter-spacing: -0.08em;
+      margin: 0;
+      text-transform: uppercase;
+    }
+
+    .hero-subtitle {
+      max-width: 680px;
+      margin-top: 26px;
+      font-size: clamp(18px, 2vw, 25px);
+      line-height: 1.35;
+      color: var(--muted);
+    }
+
+    .hero-subtitle strong { color: var(--text); }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    .btn {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 13px 18px;
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      transition: 180ms ease;
+      background: rgba(255,255,255,0.04);
+      cursor: pointer;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: max-content;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      border-color: var(--yellow);
+    }
+
+    .btn.primary {
+      background: var(--yellow);
+      color: #080808;
+      border-color: var(--yellow);
+      font-weight: 700;
+    }
+
+    .hero-card {
+      border: 1px solid var(--line);
+      background: linear-gradient(160deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+      border-radius: 28px;
+      padding: 24px;
+      min-height: 420px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.28);
+    }
+
+    .hero-card::before {
+      content: "BBS LAB";
+      position: absolute;
+      right: -20px;
+      bottom: 20px;
+      color: rgba(245, 242, 232, 0.06);
+      font-size: 88px;
+      font-weight: 900;
+      letter-spacing: -0.08em;
+      transform: rotate(-8deg);
+    }
+
+    .studio-tag {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      padding: 8px 10px;
+      border-radius: 10px;
+      background: #080808;
+      color: var(--yellow);
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      margin-bottom: 68px;
+    }
+
+    .big-number {
+      position: relative;
+      z-index: 1;
+      font-size: 86px;
+      font-weight: 900;
+      letter-spacing: -0.08em;
+      color: var(--yellow);
+    }
+
+    .hero-card p {
+      position: relative;
+      z-index: 1;
+      max-width: 300px;
+      color: var(--muted);
+      line-height: 1.5;
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+    }
+
+    section {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 70px 20px;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-title {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 26px;
+    }
+
+    h2 {
+      font-size: clamp(32px, 5vw, 64px);
+      line-height: 0.92;
+      letter-spacing: -0.06em;
+      margin: 0;
+      text-transform: uppercase;
+    }
+
+    .section-note {
+      max-width: 460px;
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .beats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .beats-season {
+      display: inline-flex;
+      margin-bottom: 12px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(242, 194, 48, 0.12);
+      color: var(--yellow);
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+    }
+
+    .beat-video {
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      max-height: 560px;
+      border-radius: 18px;
+      background: #000;
+      object-fit: contain;
+      display: block;
+    }
+
+    .beats-cta {
+      margin-top: 26px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .beats-years {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .beats-years a {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      color: var(--muted);
+      transition: 180ms ease;
+    }
+
+    .beats-years a:hover { border-color: var(--yellow); color: var(--yellow); }
+
+    @media (max-width: 1050px) {
+      .beats-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    .photo-grid, .press-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .media-card, .work-card, .press-card, .photo-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 18px;
+      overflow: hidden;
+    }
+
+    .media-card h3, .work-card h3, .press-card h3 {
+      margin: 0 0 12px;
+      font-size: 18px;
+      letter-spacing: -0.02em;
+    }
+
+    .embed-box {
+      min-height: 520px;
+      border-radius: 18px;
+      overflow: hidden;
+      background: var(--card);
+      border: 1px dashed rgba(245, 242, 232, 0.22);
+      display: grid;
+      place-items: center;
+    }
+
+    .embed-box iframe {
+      width: 100%;
+      height: 100%;
+      min-height: 520px;
+      border: 0;
+    }
+
+    .youtube-box {
+      aspect-ratio: 9 / 16;
+      min-height: 520px;
+    }
+
+    .youtube-box iframe {
+      width: 100%;
+      height: 100%;
+    }
+
+    .fallback {
+      padding: 22px;
+      text-align: center;
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .about {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 34px;
+      align-items: start;
+    }
+
+    .about-panel {
+      border-radius: 28px;
+      padding: 26px;
+      background: var(--yellow);
+      color: #080808;
+      position: sticky;
+      top: 92px;
+    }
+
+    .about-panel h3 {
+      margin: 0 0 12px;
+      font-size: 42px;
+      line-height: 0.92;
+      letter-spacing: -0.06em;
+      text-transform: uppercase;
+    }
+
+    .about-text {
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.62;
+    }
+
+    .about-text strong { color: var(--text); }
+
+    .photo-card {
+      padding: 0;
+      position: relative;
+    }
+
+    .photo-card img {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      display: block;
+      filter: saturate(0.92) contrast(1.08);
+    }
+
+    .photo-card span {
+      position: absolute;
+      left: 14px;
+      bottom: 14px;
+      background: rgba(8,8,8,0.76);
+      color: var(--yellow);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+    }
+
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .work-card {
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .work-card p, .press-card p {
+      color: var(--muted);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .tag {
+      display: inline-flex;
+      width: max-content;
+      margin-top: 22px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(242, 194, 48, 0.12);
+      color: var(--yellow);
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+    }
+
+    .contact-box {
+      border-radius: 30px;
+      padding: 36px;
+      background: linear-gradient(135deg, var(--yellow), var(--orange));
+      color: #080808;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .contact-box h2 { color: #080808; }
+
+    .contact-box p {
+      max-width: 620px;
+      line-height: 1.5;
+      font-size: 18px;
+      margin-bottom: 0;
+    }
+
+    .contact-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .contact-actions .btn {
+      border-color: rgba(0,0,0,0.25);
+      background: #080808;
+      color: var(--text);
+      text-align: center;
+      width: 100%;
+    }
+
+    footer {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 32px 20px 60px;
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      border-top: 1px solid var(--line);
+    }
+
+    @media (max-width: 1050px) {
+      .content-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    .agenda-preview {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 12px;
+}
+
+.agenda-item {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 14px;
+  align-items: center;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(8,8,8,0.42);
+}
+
+.agenda-date {
+  color: var(--yellow);
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.agenda-item h4 {
+  margin: 0 0 4px;
+  font-size: 15px;
+}
+
+.agenda-item p {
+  margin: 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+    @media (max-width: 850px) {
+      .nav-links { display: none; }
+      .hero, .about, .contact-box { grid-template-columns: 1fr; }
+      .hero { padding-top: 54px; }
+      .hero-card { min-height: 320px; }
+      .content-grid, .press-grid, .work-grid, .photo-grid, .spotify-grid, .beats-grid { grid-template-columns: 1fr; }
+      .section-title { align-items: start; flex-direction: column; }
+      .about-panel { position: static; }
+      footer { flex-direction: column; }
+    }
+
+    .aulas-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .aula-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .aula-card:hover { border-color: rgba(242, 194, 48, 0.45); transform: translateY(-4px); }
+
+    .aula-card.destaque { grid-column: span 2; grid-row: span 2; }
+
+    .aula-player {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #000;
+      cursor: pointer;
+      border: 0;
+      padding: 0;
+      width: 100%;
+      display: block;
+    }
+
+    .aula-player img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0.85;
+      transition: opacity 0.3s ease;
+    }
+
+    .aula-player:hover img { opacity: 1; }
+
+    .aula-player .play {
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: var(--yellow);
+      color: #080808;
+      display: grid;
+      place-items: center;
+      font-size: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    .aula-player .dur {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+      background: rgba(8,8,8,0.8);
+      color: var(--text);
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 8px;
+    }
+
+    .aula-player iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+    .aula-card h3 { margin: 0; font-size: 17px; letter-spacing: -0.02em; }
+    .aula-card.destaque h3 { font-size: 26px; }
+    .aula-card p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
+
+    .aulas-sub {
+      margin: 42px 0 18px;
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      color: var(--yellow);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    @media (max-width: 1050px) {
+      .aulas-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 850px) {
+      .aulas-grid { grid-template-columns: 1fr; }
+      .aula-card.destaque { grid-column: auto; grid-row: auto; }
+      .aula-card.destaque h3 { font-size: 20px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <nav class="nav">
+      <a class="brand" href="/#top">
+        <span class="brand-mark">BBS</span>
+        <span>Big Jesi</span>
+      </a>
+      <div class="nav-links">
+        <a href="/#conteudos">conteúdos</a>
+        <a href="/#spotify">ouça</a>
+        <a href="/#30dias30beats">#30dias30beats</a>
+        <a href="/#bigbit">bigbit</a>
+        <a href="/#sobre">sobre</a>
+        <a href="/#fotos">fotos</a>
+        <a href="/#aulas">aulas</a>
+        <a href="/#videos">vídeos</a>
+        <a href="/#trabalhos">trabalhos</a>
+        <a href="/#imprensa">imprensa</a>
+        <a href="/#contato">contato</a>
+      </div>
+    </nav>
+  </div>
+
+  <main id="top">
+    <section id="videos">
+      <div class="section-title">
+        <h1 style="font-size:clamp(54px,9vw,120px);line-height:.86;letter-spacing:-.08em;margin:0;text-transform:uppercase">Vídeos</h1>
+        <p class="section-note">Apresentações, programas de TV, sessões e clipes.</p>
+      </div>
+
+      <h3 class="aulas-sub" id="tv">TV e programas</h3>
+      <div class="aulas-grid">
+        <article class="aula-card">
+          <button class="aula-player" data-yt="RAbrQbfj5so" aria-label="Assistir: Bixarte no One Take Show">
+            <img src="https://i.ytimg.com/vi/RAbrQbfj5so/hqdefault.jpg" alt="Bixarte no One Take Show" loading="lazy">
+            <span class="play">▶</span>
+            <span class="dur">0:49</span>
+          </button>
+          <span class="beats-season">TV • One Take Show</span>
+          <h3>Bixarte no One Take Show</h3>
+          <p>Trailer do episódio com Bixarte na série musical filmada em plano sequência.</p>
+        </article>
+        <article class="aula-card">
+          <button class="aula-player" data-yt="DQdoyvG32Ok" aria-label="Assistir: Bixarte no Cultura Livre">
+            <img src="https://i.ytimg.com/vi/DQdoyvG32Ok/hqdefault.jpg" alt="Bixarte no Cultura Livre" loading="lazy">
+            <span class="play">▶</span>
+            <span class="dur">27:58</span>
+          </button>
+          <span class="beats-season">TV Cultura • Cultura Livre</span>
+          <h3>Bixarte no Cultura Livre</h3>
+          <p>Episódio completo com Bixarte e banda no programa de Roberta Martinelli.</p>
+        </article>
+      </div>
+
+      <h3 class="aulas-sub" id="sessions">BBS Sessions</h3>
+      <div class="aulas-grid">
+        <article class="aula-card">
+          <button class="aula-player" data-yt="XbMtkZ2BbZc" aria-label="Assistir: Gaby Hardman, Olho por olho">
+            <img src="https://i.ytimg.com/vi/XbMtkZ2BbZc/hqdefault.jpg" alt="Gaby Hardman, Olho por olho" loading="lazy">
+            <span class="play">▶</span>
+            <span class="dur">1:56</span>
+          </button>
+          <span class="beats-season">BBS Session #01</span>
+          <h3>Gaby Hardman, Olho por olho</h3>
+          <p>Versão de Beth Carvalho gravada no BBS Lab.</p>
+        </article>
+        <article class="aula-card">
+          <button class="aula-player" data-yt="B6nP2in9tLg" aria-label="Assistir: Lau Capym, Como eu quero">
+            <img src="https://i.ytimg.com/vi/B6nP2in9tLg/hqdefault.jpg" alt="Lau Capym, Como eu quero" loading="lazy">
+            <span class="play">▶</span>
+          </button>
+          <span class="beats-season">BBS Session #02</span>
+          <h3>Lau Capym, Como eu quero</h3>
+          <p>Sessão ao vivo gravada no BBS Lab.</p>
+        </article>
+      </div>
+
+      <h3 class="aulas-sub" id="clipes">Clipes</h3>
+      <div class="aulas-grid">
+        <article class="aula-card">
+          <button class="aula-player" data-yt="FBHeijo4vR4" aria-label="Assistir: Gaby Hardman, Jacumã">
+            <img src="https://i.ytimg.com/vi/FBHeijo4vR4/hqdefault.jpg" alt="Gaby Hardman, Jacumã" loading="lazy">
+            <span class="play">▶</span>
+            <span class="dur">3:30</span>
+          </button>
+          <span class="beats-season">Clipe</span>
+          <h3>Gaby Hardman, Jacumã</h3>
+          <p>Videoclipe de Jacumã, de Gaby Hardman.</p>
+        </article>
+      </div>
+
+      <h3 class="aulas-sub" id="aovivo">Ao vivo com Bixarte</h3>
+      <div class="aulas-grid">
+        <article class="aula-card">
+          <button class="aula-player" data-yt="jJrYI58eNg8" aria-label="Assistir: Bixarte no Festival DoSol 2022">
+            <img src="https://i.ytimg.com/vi/jJrYI58eNg8/hqdefault.jpg" alt="Bixarte no Festival DoSol 2022" loading="lazy">
+            <span class="play">▶</span>
+            <span class="dur">5:06</span>
+          </button>
+          <span class="beats-season">Ao vivo • Bixarte</span>
+          <h3>Bixarte no Festival DoSol 2022</h3>
+          <p>Show no Festival DoSol, em Natal.</p>
+        </article>
+        <article class="aula-card">
+          <button class="aula-player" data-yt="7NzldSCr_zs" aria-label="Assistir: Bixarte no Natal na Usina 2022">
+            <img src="https://i.ytimg.com/vi/7NzldSCr_zs/hqdefault.jpg" alt="Bixarte no Natal na Usina 2022" loading="lazy">
+            <span class="play">▶</span>
+            <span class="dur">1:09:01</span>
+          </button>
+          <span class="beats-season">Ao vivo • Bixarte</span>
+          <h3>Bixarte no Natal na Usina 2022</h3>
+          <p>Show completo transmitido no Natal na Usina.</p>
+        </article>
+        <article class="aula-card">
+          <button class="aula-player" data-yt="yPY1b48UEG8" aria-label="Assistir: Bixarte no Estúdio Showlivre">
+            <img src="https://i.ytimg.com/vi/yPY1b48UEG8/hqdefault.jpg" alt="Bixarte no Estúdio Showlivre" loading="lazy">
+            <span class="play">▶</span>
+            <span class="dur">2:40</span>
+          </button>
+          <span class="beats-season">Ao vivo • Bixarte</span>
+          <h3>Bixarte no Estúdio Showlivre</h3>
+          <p>Black Bitch Travesti, ao vivo no Estúdio Showlivre (2021).</p>
+        </article>
+      </div>
+
+      <h3 class="aulas-sub" id="burromorto">Burro Morto</h3>
+      <div class="aulas-grid">
+        <article class="aula-card">
+          <button class="aula-player" data-yt="XQoO9BD0W-M" aria-label="Assistir: Burro Morto no Instrumental Sesc Brasil">
+            <img src="https://i.ytimg.com/vi/XQoO9BD0W-M/hqdefault.jpg" alt="Burro Morto no Instrumental Sesc Brasil" loading="lazy">
+            <span class="play">▶</span>
+            <span class="dur">48:20</span>
+          </button>
+          <span class="beats-season">Burro Morto</span>
+          <h3>Burro Morto no Instrumental Sesc Brasil</h3>
+          <p>Programa completo da Burro Morto no Instrumental Sesc Brasil.</p>
+        </article>
+      </div>
+
+      <div class="beats-cta">
+        <a class="btn primary" href="/">voltar ao início</a>
+        <a class="btn" href="/aulas.html">ver aulas</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>© Big Jesi / BBS Lab</span>
+    <span>site one page</span>
+  </footer>
+
+  <script>
+    document.addEventListener('click', e => {
+      const btn = e.target.closest('.aula-player');
+      if (!btn || btn.querySelector('iframe')) return;
+      const id = btn.dataset.yt;
+      btn.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0" title="Aula Big Jesi" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
+    });
+  </script>
+</body>
+</html>
